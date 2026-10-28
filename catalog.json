@@ -1,0 +1,164 @@
+{
+  "telegram": "henzofflimits",
+  "products": [
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "category": "Streaming",
+      "desc": "Stream movies and TV shows.",
+      "plans": [
+        {
+          "label": "1 Month",
+          "price": null
+        },
+        {
+          "label": "3 Months",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "category": "Music",
+      "desc": "Music streaming subscription.",
+      "plans": [
+        {
+          "label": "1 Month",
+          "price": null
+        },
+        {
+          "label": "3 Months",
+          "price": null
+        },
+        {
+          "label": "12 Months",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "apple-music",
+      "name": "Apple Music",
+      "category": "Music",
+      "desc": "Music streaming from Apple.",
+      "plans": [
+        {
+          "label": "1 Month",
+          "price": null
+        },
+        {
+          "label": "3 Months",
+          "price": null
+        },
+        {
+          "label": "12 Months",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "capcut-pro",
+      "name": "CapCut Pro",
+      "category": "Apps",
+      "desc": "Video editing with Pro features.",
+      "plans": [
+        {
+          "label": "1 Month",
+          "price": null
+        },
+        {
+          "label": "12 Months",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "telegram-premium",
+      "name": "Telegram Premium",
+      "category": "Apps",
+      "desc": "Premium subscription for Telegram.",
+      "plans": [
+        {
+          "label": "3 Months",
+          "price": null
+        },
+        {
+          "label": "6 Months",
+          "price": null
+        },
+        {
+          "label": "12 Months",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "apple-gift-cards",
+      "name": "Apple Gift Cards",
+      "category": "Gift Cards",
+      "desc": "Apple gift card credit. Choose a denomination.",
+      "plans": [
+        {
+          "label": "5 USD",
+          "price": null
+        },
+        {
+          "label": "10 USD",
+          "price": null
+        },
+        {
+          "label": "25 USD",
+          "price": null
+        },
+        {
+          "label": "50 USD",
+          "price": null
+        },
+        {
+          "label": "100 USD",
+          "price": null
+        }
+      ],
+      "active": true
+    },
+    {
+      "id": "ml-diamonds",
+      "name": "Mobile Legends Diamonds",
+      "category": "Gaming",
+      "desc": "In game Diamonds for Mobile Legends.",
+      "plans": [
+        {
+          "label": "3 Diamonds",
+          "price": null
+        },
+        {
+          "label": "55 Diamonds",
+          "price": null
+        },
+        {
+          "label": "165 Diamonds",
+          "price": null
+        },
+        {
+          "label": "275 Diamonds",
+          "price": null
+        },
+        {
+          "label": "565 Diamonds",
+          "price": null
+        },
+        {
+          "label": "1050 Diamonds",
+          "price": null
+        }
+      ],
+      "active": true
+    }
+  ]
+}
