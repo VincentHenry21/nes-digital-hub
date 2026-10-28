@@ -232,15 +232,43 @@ function showShop() {
   document.getElementById("admin-view").classList.add("hidden");
   renderShop();
 }
+var ADMIN_PASSCODE = "1818";
+function adminUnlocked() {
+  try { return sessionStorage.getItem("nes-hub-admin") === "1"; } catch (e) { return false; }
+}
 function showAdmin() {
   document.getElementById("shop-view").classList.add("hidden");
   var v = document.getElementById("admin-view");
   v.classList.remove("hidden");
-  renderAdmin();
+  if (adminUnlocked()) { renderAdmin(); } else { renderAdminLock(); }
+}
+function renderAdminLock() {
+  var v = document.getElementById("admin-view");
+  v.innerHTML = '<div class="admin-note"><b>Admin area, passcode protected</b>'
+    + "Enter the admin passcode to edit products and prices.</div>"
+    + '<div class="field"><label for="admin-passcode">Admin passcode</label>'
+    + '<input id="admin-passcode" type="password" inputmode="numeric" maxlength="4" placeholder="4-digit passcode"></div>'
+    + '<p id="admin-passcode-error" style="color:#ffb4b4;display:none;">Wrong passcode. Try again.</p>'
+    + '<button class="smallbtn" id="admin-unlock" type="button">Unlock admin</button>';
+  var input = document.getElementById("admin-passcode");
+  var go = function () {
+    var err = document.getElementById("admin-passcode-error");
+    if (input.value === ADMIN_PASSCODE) {
+      try { sessionStorage.setItem("nes-hub-admin", "1"); } catch (e) {}
+      renderAdmin();
+    } else {
+      err.style.display = "block";
+      input.value = "";
+      input.focus();
+    }
+  };
+  document.getElementById("admin-unlock").addEventListener("click", go);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); go(); } });
+  input.focus();
 }
 function renderAdmin() {
   var v = document.getElementById("admin-view");
-  var html = '<div class="admin-note"><b>Admin editing, no login yet</b>'
+  var html = '<div class="admin-note"><b>Admin editing, passcode protected</b>'
     + "Admin editing currently saves on this device only. A future update will add login and a shared catalog.</div>";
   html += '<div class="field"><label for="admin-telegram">Admin Telegram username</label>'
     + '<input id="admin-telegram" type="text" value="' + esc(catalog.telegram) + '"></div>';
