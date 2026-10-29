@@ -1,164 +1,269 @@
 {
-  "telegram": "henzofflimits",
+  "telegramUsername": "henzofflimits",
+  "supportPhone": "09457322394",
   "products": [
     {
       "id": "netflix",
       "name": "Netflix",
       "category": "Streaming",
-      "desc": "Stream movies and TV shows.",
+      "accent": "from-rose-600 to-red-700",
+      "badgeBg": "bg-rose-500/15 text-rose-500 border-rose-500/30",
+      "iconType": "tv",
+      "active": true,
+      "promo": true,
+      "descEn": "Stream movies and TV shows in 4K Ultra HD.",
+      "descMm": "ရုပ်ရှင်နှင့် တီဗီရှိုးများကို ကြည့်ရှုပါ။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "1 Month",
-          "price": null
+          "price": ""
         },
         {
           "label": "3 Months",
-          "price": null
+          "price": ""
         }
-      ],
-      "active": true
+      ]
     },
     {
       "id": "spotify",
       "name": "Spotify",
       "category": "Music",
-      "desc": "Music streaming subscription.",
+      "accent": "from-emerald-500 to-green-700",
+      "badgeBg": "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
+      "iconType": "music",
+      "active": true,
+      "promo": true,
+      "descEn": "Music streaming subscription.",
+      "descMm": "ဂီတ ထုတ်လွှင့်မှု စာရင်းသွင်းခြင်း။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "1 Month",
-          "price": null
+          "price": ""
         },
         {
           "label": "3 Months",
-          "price": null
+          "price": ""
         },
         {
           "label": "12 Months",
-          "price": null
+          "price": ""
+        },
+        {
+          "label": "Family 3 Months",
+          "price": ""
+        },
+        {
+          "label": "Family 6 Months",
+          "price": ""
+        },
+        {
+          "label": "Family 1 Year",
+          "price": "52,000 MMK"
         }
-      ],
-      "active": true
+      ]
     },
     {
       "id": "apple-music",
       "name": "Apple Music",
       "category": "Music",
-      "desc": "Music streaming from Apple.",
+      "accent": "from-pink-500 to-rose-600",
+      "badgeBg": "bg-pink-500/15 text-pink-500 border-pink-500/30",
+      "iconType": "music",
+      "active": true,
+      "promo": false,
+      "descEn": "Music streaming from Apple with Lossless audio.",
+      "descMm": "Apple မှ ဂီတ ထုတ်လွှင့်ခြင်း။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "1 Month",
-          "price": null
+          "price": "5,500 MMK"
         },
         {
           "label": "3 Months",
-          "price": null
+          "price": ""
         },
         {
           "label": "12 Months",
-          "price": null
+          "price": ""
         }
-      ],
-      "active": true
+      ]
     },
     {
       "id": "capcut-pro",
       "name": "CapCut Pro",
       "category": "Apps",
-      "desc": "Video editing with Pro features.",
+      "accent": "from-cyan-500 to-blue-600",
+      "badgeBg": "bg-cyan-500/15 text-cyan-500 border-cyan-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": true,
+      "descEn": "Video editing with Pro features and cloud effects.",
+      "descMm": "Pro အင်္ဂါရပ်များဖြင့် ဗီဒီယို တည်းဖြတ်ခြင်း။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "1 Month",
-          "price": null
+          "price": ""
         },
         {
           "label": "12 Months",
-          "price": null
+          "price": ""
         }
-      ],
-      "active": true
+      ]
     },
     {
       "id": "telegram-premium",
       "name": "Telegram Premium",
       "category": "Apps",
-      "desc": "Premium subscription for Telegram.",
+      "accent": "from-sky-500 to-blue-600",
+      "badgeBg": "bg-sky-500/15 text-sky-500 border-sky-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": true,
+      "descEn": "Premium subscription for Telegram.",
+      "descMm": "Telegram အတွက် Premium စာရင်းသွင်းခြင်း။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "3 Months",
-          "price": null
+          "price": ""
         },
         {
           "label": "6 Months",
-          "price": null
+          "price": ""
         },
         {
           "label": "12 Months",
-          "price": null
+          "price": ""
         }
-      ],
-      "active": true
+      ]
     },
     {
       "id": "apple-gift-cards",
       "name": "Apple Gift Cards",
       "category": "Gift Cards",
-      "desc": "Apple gift card credit. Choose a denomination.",
+      "accent": "from-indigo-500 to-violet-600",
+      "badgeBg": "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
+      "iconType": "card",
+      "active": true,
+      "promo": false,
+      "descEn": "Apple gift card credit. Choose a denomination.",
+      "descMm": "Apple လက်ဆောင်ကတ် ခရက်ဒစ်။ ငွေပမာဏကို ရွေးချယ်ပါ။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
           "label": "5 USD",
-          "price": null
+          "price": ""
         },
         {
           "label": "10 USD",
-          "price": null
+          "price": ""
         },
         {
           "label": "25 USD",
-          "price": null
+          "price": ""
         },
         {
           "label": "50 USD",
-          "price": null
+          "price": ""
         },
         {
           "label": "100 USD",
-          "price": null
+          "price": ""
         }
-      ],
-      "active": true
+      ]
     },
     {
-      "id": "ml-diamonds",
-      "name": "Mobile Legends Diamonds",
-      "category": "Gaming",
-      "desc": "In game Diamonds for Mobile Legends.",
+      "id": "youtube-premium",
+      "name": "YouTube Premium",
+      "category": "Streaming",
+      "accent": "from-red-500 to-rose-700",
+      "badgeBg": "bg-red-500/15 text-red-500 border-red-500/30",
+      "iconType": "tv",
+      "active": true,
+      "promo": false,
+      "descEn": "Ad-free YouTube videos, offline downloads & YouTube Music.",
+      "descMm": "ကြော်ငြာမပါသော YouTube ဗီဒီယိုနှင့် YouTube Music ဝန်ဆောင်မှု။",
+      "selectedPlanIndex": 0,
       "plans": [
         {
-          "label": "3 Diamonds",
-          "price": null
+          "label": "1 Month",
+          "price": "4,500 MMK"
         },
         {
-          "label": "55 Diamonds",
-          "price": null
+          "label": "3 Months",
+          "price": "12,500 MMK"
         },
         {
-          "label": "165 Diamonds",
-          "price": null
-        },
-        {
-          "label": "275 Diamonds",
-          "price": null
-        },
-        {
-          "label": "565 Diamonds",
-          "price": null
-        },
-        {
-          "label": "1050 Diamonds",
-          "price": null
+          "label": "12 Months",
+          "price": "45,000 MMK"
         }
-      ],
-      "active": true
+      ]
+    },
+    {
+      "id": "mlbb-diamonds",
+      "name": "Mobile Legends Diamonds",
+      "category": "Gaming",
+      "accent": "from-amber-500 to-orange-600",
+      "badgeBg": "bg-amber-500/15 text-amber-500 border-amber-500/30",
+      "iconType": "game",
+      "active": true,
+      "promo": false,
+      "descEn": "Instant MLBB Diamonds & Weekly Diamond Pass top-up by ID.",
+      "descMm": "Mobile Legends စိန်နှင့် Weekly Pass ချက်ချင်းဖြည့်သွင်းခြင်း။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "Weekly Pass",
+          "price": "6,800 MMK"
+        },
+        {
+          "label": "86 Diamonds",
+          "price": ""
+        },
+        {
+          "label": "172 Diamonds",
+          "price": ""
+        },
+        {
+          "label": "257 Diamonds",
+          "price": ""
+        }
+      ]
+    },
+    {
+      "id": "steam-wallet",
+      "name": "Steam Wallet Code",
+      "category": "Gift Cards",
+      "accent": "from-slate-600 to-blue-800",
+      "badgeBg": "bg-blue-500/15 text-blue-400 border-blue-500/30",
+      "iconType": "card",
+      "active": true,
+      "promo": false,
+      "descEn": "Official Steam Wallet gift card codes for PC gaming.",
+      "descMm": "PC ဂိမ်းများအတွက် Steam Wallet လက်ဆောင်ကတ်ကုဒ်များ။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "5 USD",
+          "price": ""
+        },
+        {
+          "label": "10 USD",
+          "price": ""
+        },
+        {
+          "label": "20 USD",
+          "price": ""
+        },
+        {
+          "label": "50 USD",
+          "price": ""
+        }
+      ]
     }
   ]
 }
