@@ -421,6 +421,16 @@
 
   </main>
 
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 pb-10 pt-6 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium">
+      <a id="footerPolicyLink" data-i18n="footerPolicy" href="policy.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Policy</a>
+      <a id="footerTermsLink" data-i18n="footerTerms" href="terms.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Terms and Conditions</a>
+    </div>
+    <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
+    <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
+  </footer>
+
   <!-- Order Confirmation & Telegram Checkout Modal -->
   <div id="orderModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
     <div class="w-full max-w-md rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
@@ -554,6 +564,10 @@
         filterPromo: 'On Promotion Only',
         promoBanner: 'Showing special promotion items. Select a plan to order at promo rates!',
         showAll: 'Show All',
+        footerPolicy: 'Policy',
+        footerTerms: 'Terms and Conditions',
+        footerRights: 'All rights reserved.',
+        footerDeveloped: 'Developed By NXT:Labs',
         step1Title: 'Pick Service & Plan',
         step1Desc: 'Select your desired duration (1M, 3M, 12M) or gift card amount on any card.',
         step2Title: 'Tap Buy on Telegram',
@@ -590,6 +604,10 @@
         filterPromo: 'ပရိုမိုးရှင်း သီးသန့်',
         promoBanner: 'အထူးပရိုမိုးရှင်း ပစ္စည်းများကို ပြသထားပါသည်။ ပက်ကေ့ချ်ရွေးချယ်ပြီး ဝယ်ယူနိုင်ပါသည်!',
         showAll: 'အားလုံးပြန်ပြရန်',
+        footerPolicy: 'မူဝါဒ',
+        footerTerms: 'စည်းမျဉ်းစည်းကမ်းများ',
+        footerRights: 'မူပိုင်ခွင့် အားလုံး လက်ဝယ်ရှိသည်။',
+        footerDeveloped: 'Developed By NXT:Labs',
         step1Title: 'ဝန်ဆောင်မှုနှင့် ကာလရွေးပါ',
         step1Desc: 'မိမိလိုချင်သော လအပိုင်းအခြား သို့မဟုတ် လက်ဆောင်ကတ်ပမာဏကို ရွေးချယ်ပါ။',
         step2Title: 'Telegram မှ ဝယ်ယူရန် နှိပ်ပါ',
@@ -937,6 +955,11 @@
       document.getElementById('step3Desc').textContent = t.step3Desc;
       document.getElementById('step4Title').textContent = t.step4Title;
       document.getElementById('step4Desc').textContent = t.step4Desc;
+
+      document.getElementById('footerPolicyLink').textContent = t.footerPolicy;
+      document.getElementById('footerTermsLink').textContent = t.footerTerms;
+      document.getElementById('footerRightsText').textContent = t.footerRights;
+      document.getElementById('footerDevelopedText').textContent = t.footerDeveloped;
 
       // Promo count badge
       const promoCount = state.catalog.products.filter(p => p.active && p.promo).length;
