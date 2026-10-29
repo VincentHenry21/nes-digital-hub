@@ -262,6 +262,39 @@
       </div>
     </section>
 
+    <!-- NEWS VIEW: Live public feeds -->
+    <section id="newsSection" class="hidden space-y-5">
+      <h2 id="newsHeading" class="text-lg font-bold text-slate-900 dark:text-white"></h2>
+      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
+        <div class="flex items-baseline justify-between gap-3">
+          <h3 id="newsGrammyHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
+          <span id="newsGrammySourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
+        </div>
+        <div id="grammyBody" class="space-y-2"></div>
+      </div>
+      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
+        <div class="flex items-baseline justify-between gap-3">
+          <h3 id="newsSpotifyHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
+          <span id="newsSpotifySourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
+        </div>
+        <div id="spotifyBody" class="space-y-3"></div>
+      </div>
+      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
+        <div class="flex items-baseline justify-between gap-3">
+          <h3 id="newsAppleHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
+          <span id="newsAppleSourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
+        </div>
+        <div id="appleBody" class="space-y-2"></div>
+      </div>
+      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
+        <div class="flex items-baseline justify-between gap-3">
+          <h3 id="newsMusicHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
+          <span id="newsMusicSourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
+        </div>
+        <div id="musicBody" class="space-y-2"></div>
+      </div>
+    </section>
+
     <!-- ADMIN VIEW: Passcode + High-Contrast Catalog Studio -->
     <section id="adminSection" class="hidden space-y-6">
       
@@ -564,6 +597,17 @@
         filterPromo: 'On Promotion Only',
         promoBanner: 'Showing special promotion items. Select a plan to order at promo rates!',
         showAll: 'Show All',
+        newsHeading: 'News and Hits',
+        newsGrammyTitle: 'Grammy',
+        newsSpotifyTitle: 'Spotify Hits',
+        newsAppleTitle: 'Apple Music Hits',
+        newsMusicTitle: 'News',
+        newsSource: 'Source',
+        newsLoading: 'Loading...',
+        newsLoadError: 'Couldn\'t load, tap to retry.',
+        newsRetry: 'Retry',
+        newsOpenSource: 'Open source',
+        newsOpenSpotify: 'Open in Spotify',
         footerPolicy: 'Policy',
         footerTerms: 'Terms and Conditions',
         footerRights: 'All rights reserved.',
@@ -583,6 +627,7 @@
           Apps: 'Apps',
           Gaming: 'Gaming',
           'Gift Cards': 'Gift Cards',
+          News: 'News',
           Admin: 'Admin'
         }
       },
@@ -604,6 +649,17 @@
         filterPromo: 'ပရိုမိုးရှင်း သီးသန့်',
         promoBanner: 'အထူးပရိုမိုးရှင်း ပစ္စည်းများကို ပြသထားပါသည်။ ပက်ကေ့ချ်ရွေးချယ်ပြီး ဝယ်ယူနိုင်ပါသည်!',
         showAll: 'အားလုံးပြန်ပြရန်',
+        newsHeading: 'သတင်းနှင့် ဟစ်များ',
+        newsGrammyTitle: 'ဂရမ်မီ',
+        newsSpotifyTitle: 'Spotify ဟစ်များ',
+        newsAppleTitle: 'Apple Music ဟစ်များ',
+        newsMusicTitle: 'သတင်း',
+        newsSource: 'ရင်းမြစ်',
+        newsLoading: 'တင်နေသည်...',
+        newsLoadError: 'တင်၍မရပါ၊ ပြန်ကြိုးစားရန် နှိပ်ပါ။',
+        newsRetry: 'ပြန်ကြိုးစားပါ',
+        newsOpenSource: 'ရင်းမြစ်ကို ဖွင့်ပါ',
+        newsOpenSpotify: 'Spotify တွင် ဖွင့်ပါ',
         footerPolicy: 'မူဝါဒ',
         footerTerms: 'စည်းမျဉ်းစည်းကမ်းများ',
         footerRights: 'မူပိုင်ခွင့် အားလုံး လက်ဝယ်ရှိသည်။',
@@ -623,6 +679,7 @@
           Apps: 'အက်ပ်များ',
           Gaming: 'ဂိမ်း',
           'Gift Cards': 'လက်ဆောင်ကတ်များ',
+          News: 'သတင်း',
           Admin: 'စီမံခန့်ခွဲမှု'
         }
       }
@@ -993,14 +1050,14 @@
     // --- Render Category Tabs ---
     function renderCategoryTabs() {
       const container = document.getElementById('categoryTabsContainer');
-      const categories = ['All', 'Streaming', 'Music', 'Apps', 'Gaming', 'Gift Cards', 'Admin'];
+      const categories = ['All', 'Streaming', 'Music', 'Apps', 'Gaming', 'Gift Cards', 'News', 'Admin'];
       const tCats = I18N[state.lang].categories;
 
       container.innerHTML = categories.map(cat => {
         const isActive = state.activeCategory === cat;
         const count = cat === 'All'
           ? state.catalog.products.filter(p => p.active).length
-          : cat === 'Admin'
+          : (cat === 'Admin' || cat === 'News')
             ? null
             : state.catalog.products.filter(p => p.active && p.category === cat).length;
 
@@ -1041,11 +1098,22 @@
     function renderShopGrid() {
       const shopSec = document.getElementById('shopSection');
       const adminSec = document.getElementById('adminSection');
+      const newsSec = document.getElementById('newsSection');
       const promoBanner = document.getElementById('promoBannerBar');
+
+      if (state.activeCategory === 'News') {
+        shopSec.classList.add('hidden');
+        adminSec.classList.add('hidden');
+        promoBanner.classList.add('hidden');
+        newsSec.classList.remove('hidden');
+        renderNewsView();
+        return;
+      }
 
       if (state.activeCategory === 'Admin') {
         shopSec.classList.add('hidden');
-        adminSec.classList.remove('hidden');
+        adminSec.classList.add('hidden');
+        newsSec.classList.add('hidden');
         promoBanner.classList.add('hidden');
         renderAdminView();
         return;
@@ -1053,6 +1121,7 @@
 
       shopSec.classList.remove('hidden');
       adminSec.classList.add('hidden');
+      newsSec.classList.add('hidden');
 
       if (state.promoOnly || state.priceFilter === 'promo') {
         promoBanner.classList.remove('hidden');
@@ -1235,6 +1304,274 @@
         subEl.textContent = 'All recent edits are synced with your active session.';
       }
     }
+
+    // --- News View: live public feeds, lazy-loaded on first open ---
+    const NEWS_SOURCES = {
+      grammy: {
+        rss: 'https://news.google.com/rss/search?q=Grammy%20Awards&hl=en-US&gl=US&ceid=US:en',
+        sourcePage: 'https://news.google.com/search?q=Grammy%20Awards&hl=en-US&gl=US&ceid=US:en'
+      },
+      music: {
+        rss: 'https://news.google.com/rss/search?q=music&hl=en-US&gl=US&ceid=US:en',
+        sourcePage: 'https://news.google.com/search?q=music&hl=en-US&gl=US&ceid=US:en'
+      }
+    };
+    const APPLE_CHART_XML = 'https://itunes.apple.com/us/rss/topsongs/limit=10/xml';
+    const SPOTIFY_PLAYLIST_ID = '37i9dQZF1DXcBWIGoYBM5M';
+    const SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/playlist/' + SPOTIFY_PLAYLIST_ID;
+    const SPOTIFY_PAGE_URL = 'https://open.spotify.com/playlist/' + SPOTIFY_PLAYLIST_ID;
+
+    const newsState = {
+      attempted: false,
+      sections: {
+        grammy: { status: 'idle', items: [] },
+        apple: { status: 'idle', items: [] },
+        music: { status: 'idle', items: [] }
+      },
+      spotifyFrame: false
+    };
+
+    function fetchWithTimeout(url, ms) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), ms);
+      return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+    }
+
+    function parseRssItems(xmlText, limit) {
+      const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+      if (doc.querySelector('parsererror')) throw new Error('bad xml');
+      return Array.from(doc.querySelectorAll('item')).slice(0, limit).map(item => {
+        const titleEl = item.querySelector('title');
+        const linkEl = item.querySelector('link');
+        const dateEl = item.querySelector('pubDate');
+        return {
+          title: titleEl ? titleEl.textContent.trim() : '',
+          link: linkEl ? linkEl.textContent.trim() : '',
+          date: dateEl ? dateEl.textContent.trim() : ''
+        };
+      }).filter(it => it.title && it.link);
+    }
+
+    function rss2jsonItems(json, limit) {
+      if (!json || json.status !== 'ok' || !Array.isArray(json.items)) throw new Error('bad converter');
+      return json.items.slice(0, limit).map(it => ({
+        title: it.title || '',
+        link: it.link || '',
+        date: it.pubDate || ''
+      })).filter(it => it.title && it.link);
+    }
+
+    async function loadNewsFeed(feed) {
+      const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed.rss);
+      try {
+        const res = await fetchWithTimeout(proxyUrl, 12000);
+        if (!res.ok) throw new Error('proxy status');
+        const items = parseRssItems(await res.text(), 8);
+        if (!items.length) throw new Error('proxy empty');
+        return items;
+      } catch (e) {}
+      const convUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.rss);
+      const res = await fetchWithTimeout(convUrl, 12000);
+      if (!res.ok) throw new Error('converter status');
+      const items = rss2jsonItems(await res.json(), 8);
+      if (!items.length) throw new Error('converter empty');
+      return items;
+    }
+
+    function parseAppleEntries(xmlText) {
+      const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+      if (doc.querySelector('parsererror')) throw new Error('bad xml');
+      return Array.from(doc.getElementsByTagName('entry')).slice(0, 10).map((entry, idx) => {
+        const nameEl = entry.getElementsByTagName('im:name')[0];
+        const artistEl = entry.getElementsByTagName('im:artist')[0];
+        const titleEl = entry.getElementsByTagName('title')[0];
+        let link = '';
+        const links = entry.getElementsByTagName('link');
+        for (let i = 0; i < links.length; i++) {
+          if (links[i].getAttribute('rel') === 'alternate') { link = links[i].getAttribute('href') || ''; break; }
+        }
+        if (!link && links.length) link = links[0].getAttribute('href') || '';
+        let name = nameEl ? nameEl.textContent.trim() : '';
+        let artist = artistEl ? artistEl.textContent.trim() : '';
+        if (!name && titleEl) {
+          const parts = titleEl.textContent.split(' - ');
+          name = (parts[0] || '').trim();
+          artist = (parts.slice(1).join(' - ') || '').trim();
+        }
+        return { rank: idx + 1, name: name, artist: artist, link: link };
+      }).filter(it => it.name);
+    }
+
+    async function loadAppleHits() {
+      const res = await fetchWithTimeout(APPLE_CHART_XML, 12000);
+      if (!res.ok) throw new Error('apple status');
+      const items = parseAppleEntries(await res.text());
+      if (!items.length) throw new Error('apple empty');
+      return items;
+    }
+
+    function formatFeedDate(raw) {
+      if (!raw) return '';
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return '';
+      try { return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); } catch (e) { return ''; }
+    }
+
+    function renderNewsBody(key) {
+      const t = I18N[state.lang];
+      const bodyId = key === 'grammy' ? 'grammyBody' : key === 'apple' ? 'appleBody' : 'musicBody';
+      const body = document.getElementById(bodyId);
+      if (!body) return;
+      const sec = newsState.sections[key];
+      body.innerHTML = '';
+      if (sec.status === 'loading') {
+        const p = document.createElement('p');
+        p.className = 'text-xs text-slate-500 dark:text-slate-400';
+        p.textContent = t.newsLoading;
+        body.appendChild(p);
+        return;
+      }
+      if (sec.status === 'error') {
+        const p = document.createElement('p');
+        p.className = 'text-xs text-slate-500 dark:text-slate-400';
+        p.textContent = t.newsLoadError;
+        body.appendChild(p);
+        const row = document.createElement('div');
+        row.className = 'flex flex-wrap items-center gap-2 pt-1';
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition';
+        retry.textContent = t.newsRetry;
+        retry.setAttribute('data-news-retry', key);
+        row.appendChild(retry);
+        const src = document.createElement('a');
+        src.href = key === 'apple' ? 'https://music.apple.com/us' : NEWS_SOURCES[key].sourcePage;
+        src.target = '_blank';
+        src.rel = 'noopener noreferrer';
+        src.className = 'text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline';
+        src.textContent = t.newsOpenSource;
+        row.appendChild(src);
+        body.appendChild(row);
+        return;
+      }
+      if (sec.status !== 'ok') return;
+      sec.items.forEach(it => {
+        const a = document.createElement('a');
+        a.href = it.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'block p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 transition';
+        if (key === 'apple') {
+          const top = document.createElement('div');
+          top.className = 'flex items-baseline gap-2';
+          const rank = document.createElement('span');
+          rank.className = 'text-xs font-bold text-blue-600 dark:text-blue-400';
+          rank.textContent = String(it.rank) + '.';
+          const name = document.createElement('span');
+          name.className = 'text-sm font-semibold text-slate-900 dark:text-white';
+          name.textContent = it.name;
+          top.appendChild(rank);
+          top.appendChild(name);
+          a.appendChild(top);
+          if (it.artist) {
+            const artist = document.createElement('div');
+            artist.className = 'text-xs text-slate-500 dark:text-slate-400 pl-5';
+            artist.textContent = it.artist;
+            a.appendChild(artist);
+          }
+        } else {
+          const title = document.createElement('div');
+          title.className = 'text-sm font-semibold text-slate-900 dark:text-white';
+          title.textContent = it.title;
+          a.appendChild(title);
+          const date = formatFeedDate(it.date);
+          if (date) {
+            const d = document.createElement('div');
+            d.className = 'text-[11px] text-slate-500 dark:text-slate-400 pt-0.5';
+            d.textContent = date;
+            a.appendChild(d);
+          }
+        }
+        body.appendChild(a);
+      });
+    }
+
+    function renderSpotifyBox() {
+      const t = I18N[state.lang];
+      const body = document.getElementById('spotifyBody');
+      if (!body) return;
+      let linkRow = body.querySelector('[data-spotify-link-row]');
+      if (!linkRow) {
+        linkRow = document.createElement('div');
+        linkRow.setAttribute('data-spotify-link-row', '1');
+        const a = document.createElement('a');
+        a.href = SPOTIFY_PAGE_URL;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline';
+        a.setAttribute('data-spotify-link', '1');
+        linkRow.appendChild(a);
+        body.appendChild(linkRow);
+      }
+      const link = body.querySelector('[data-spotify-link]');
+      if (link) link.textContent = t.newsOpenSpotify;
+      if (!newsState.spotifyFrame) {
+        const frame = document.createElement('iframe');
+        frame.src = SPOTIFY_EMBED_URL;
+        frame.width = '100%';
+        frame.height = '352';
+        frame.style.borderRadius = '12px';
+        frame.frameBorder = '0';
+        frame.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+        frame.loading = 'lazy';
+        frame.title = 'Spotify Embed: Today\'s Top Hits';
+        body.appendChild(frame);
+        newsState.spotifyFrame = true;
+      }
+    }
+
+    async function runNewsSection(key, loader) {
+      newsState.sections[key].status = 'loading';
+      renderNewsBody(key);
+      try {
+        const items = await loader();
+        newsState.sections[key] = { status: 'ok', items: items };
+      } catch (e) {
+        newsState.sections[key] = { status: 'error', items: [] };
+      }
+      renderNewsBody(key);
+    }
+
+    function renderNewsView() {
+      const t = I18N[state.lang];
+      const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      setText('newsHeading', t.newsHeading);
+      setText('newsGrammyHeading', t.newsGrammyTitle);
+      setText('newsSpotifyHeading', t.newsSpotifyTitle);
+      setText('newsAppleHeading', t.newsAppleTitle);
+      setText('newsMusicHeading', t.newsMusicTitle);
+      setText('newsGrammySourceLabel', t.newsSource + ': Google News');
+      setText('newsSpotifySourceLabel', t.newsSource + ': Spotify');
+      setText('newsAppleSourceLabel', t.newsSource + ': Apple Music');
+      setText('newsMusicSourceLabel', t.newsSource + ': Google News');
+      renderSpotifyBox();
+      ['grammy', 'apple', 'music'].forEach(renderNewsBody);
+      if (!newsState.attempted) {
+        newsState.attempted = true;
+        runNewsSection('grammy', () => loadNewsFeed(NEWS_SOURCES.grammy));
+        runNewsSection('apple', loadAppleHits);
+        runNewsSection('music', () => loadNewsFeed(NEWS_SOURCES.music));
+      }
+    }
+
+    document.getElementById('newsSection').addEventListener('click', (ev) => {
+      const btn = ev.target.closest('[data-news-retry]');
+      if (!btn) return;
+      const key = btn.getAttribute('data-news-retry');
+      if (key === 'grammy') runNewsSection('grammy', () => loadNewsFeed(NEWS_SOURCES.grammy));
+      if (key === 'apple') runNewsSection('apple', loadAppleHits);
+      if (key === 'music') runNewsSection('music', () => loadNewsFeed(NEWS_SOURCES.music));
+    });
 
     function renderAdminView() {
       const lockCard = document.getElementById('adminLockCard');
