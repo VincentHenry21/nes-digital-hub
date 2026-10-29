@@ -70,6 +70,15 @@
     /* Mobile-only compact product squares (phone widths only) */
     .plan-select { display: none; }
     .brand-tile { width: 2.75rem; height: 2.75rem; }
+
+    /* News cards: titles wrap, never overlap the source pill */
+    .news-card { overflow-wrap: anywhere; word-break: break-word; }
+    .news-card h3 { min-width: 0; }
+    #spotifyBody iframe { width: 100%; max-width: 100%; display: block; }
+    /* Membership cards: equal height, button pinned to the bottom */
+    .membership-card { display: flex; flex-direction: column; height: 100%; }
+    .membership-card .member-body { display: flex; flex-direction: column; flex: 1; gap: 1rem; }
+    .membership-card .member-foot { margin-top: auto; padding-top: 0.25rem; }
     @media (max-width: 700px) {
       #productsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
       #productsGrid .prod-card { padding: 0.75rem; }
@@ -280,35 +289,166 @@
     </section>
 
     <!-- NEWS VIEW: Live public feeds -->
-    <section id="newsSection" class="hidden space-y-5">
-      <h2 id="newsHeading" class="text-lg font-bold text-slate-900 dark:text-white"></h2>
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
-        <div class="flex items-baseline justify-between gap-3">
-          <h3 id="newsGrammyHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
-          <span id="newsGrammySourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
-        </div>
-        <div id="grammyBody" class="space-y-2"></div>
+    <section id="newsSection" class="hidden">
+      <div class="mb-5">
+        <h2 id="newsHeading" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white"></h2>
+        <p id="newsSubtext" class="mt-1 text-sm text-slate-500 dark:text-slate-400"></p>
       </div>
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
-        <div class="flex items-baseline justify-between gap-3">
-          <h3 id="newsSpotifyHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
-          <span id="newsSpotifySourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
-        </div>
-        <div id="spotifyBody" class="space-y-3"></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4M7 4h10v6a5 5 0 01-10 0V4zM7 6H4a1 1 0 00-1 1v1a3 3 0 003 3M17 6h3a1 1 0 011 1v1a3 3 0 01-3 3"/></svg>
+            </span>
+            <h3 id="newsGrammyHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
+            <span id="newsGrammySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+          </div>
+          <div id="grammyBody" class="space-y-2"></div>
+        </article>
+        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </span>
+            <h3 id="newsSpotifyHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
+            <span id="newsSpotifySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+          </div>
+          <div id="spotifyBody" class="space-y-3"></div>
+        </article>
+        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </span>
+            <h3 id="newsAppleHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
+            <span id="newsAppleSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+          </div>
+          <div id="appleBody" class="space-y-2"></div>
+        </article>
+        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6"/></svg>
+            </span>
+            <h3 id="newsMusicHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
+            <span id="newsMusicSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+          </div>
+          <div id="musicBody" class="space-y-2"></div>
+        </article>
       </div>
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
-        <div class="flex items-baseline justify-between gap-3">
-          <h3 id="newsAppleHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
-          <span id="newsAppleSourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
-        </div>
-        <div id="appleBody" class="space-y-2"></div>
+    </section>
+
+    <!-- MEMBERSHIP VIEW: bundle plans with their own tier styles -->
+    <section id="membershipSection" class="hidden">
+      <div class="mb-5">
+        <h2 id="membershipHeading" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white"></h2>
+        <p id="membershipSubtext" class="mt-1 text-sm text-slate-500 dark:text-slate-400"></p>
       </div>
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3">
-        <div class="flex items-baseline justify-between gap-3">
-          <h3 id="newsMusicHeading" class="text-base font-bold text-slate-900 dark:text-white"></h3>
-          <span id="newsMusicSourceLabel" class="text-[11px] text-slate-500 dark:text-slate-400 shrink-0"></span>
-        </div>
-        <div id="musicBody" class="space-y-2"></div>
+      <div class="mb-5 flex items-start gap-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </span>
+        <p id="membershipRule" class="text-sm font-medium text-amber-800 dark:text-amber-200 leading-relaxed"></p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
+        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+          <div class="h-1.5 bg-gradient-to-r from-slate-400 to-blue-500"></div>
+          <div class="member-body p-5 sm:p-6">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-blue-600/10 text-blue-600 dark:text-blue-400 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Normal Member</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Starter bundle</p>
+              </div>
+            </div>
+            <div>
+              <p class="text-3xl font-extrabold text-slate-900 dark:text-white leading-none">30,000 <span class="text-base font-bold">MMK</span></p>
+              <p class="mt-1 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400">ONLY</p>
+            </div>
+            <div>
+              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Family 3 Months</span></li>
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>CapCut Pro 1 Month</span></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5">
+              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="normalEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+            </div>
+            <div class="member-foot">
+              <button type="button" data-member-apply="normal" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white shadow-md shadow-blue-600/20 transition">Apply via Telegram</button>
+            </div>
+          </div>
+        </article>
+        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-amber-300/70 dark:border-amber-500/40 shadow-sm overflow-hidden">
+          <div class="h-1.5 bg-gradient-to-r from-amber-400 to-yellow-500"></div>
+          <div class="member-body p-5 sm:p-6">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3h14l-1.5 9h-11L5 3zm3 9l3 3 3-3M12 15v6m-4 0h8"/></svg>
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Gold Member</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Music plus gift card bundle</p>
+              </div>
+            </div>
+            <div>
+              <p class="text-3xl font-extrabold text-slate-900 dark:text-white leading-none">45,000 <span class="text-base font-bold">MMK</span></p>
+              <p class="mt-1 text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400">ONLY</p>
+            </div>
+            <div>
+              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Individual 1 Month</span></li>
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>CapCut Pro 1 Month</span></li>
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Apple Gift Card 2$</span></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 p-3.5">
+              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="goldEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+            </div>
+            <div class="member-foot">
+              <button type="button" data-member-apply="gold" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 shadow-md shadow-amber-500/20 transition">Apply via Telegram</button>
+            </div>
+          </div>
+        </article>
+        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-emerald-300/70 dark:border-emerald-500/40 shadow-sm overflow-hidden">
+          <div class="h-1.5 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+          <div class="member-body p-5 sm:p-6">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 3h12l4 6-10 12L2 9l4-6zM2 9h20M9 3l3 6 3-6"/></svg>
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Emerald Member</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Top bundle, with a free extra</p>
+              </div>
+            </div>
+            <div>
+              <p class="text-3xl font-extrabold text-slate-900 dark:text-white leading-none">85,000 <span class="text-base font-bold">MMK</span></p>
+              <p class="mt-1 text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400">ONLY</p>
+            </div>
+            <div>
+              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Individual 3 Months</span></li>
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Apple Gift Card 10$ + 1$ (Free)</span></li>
+                <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Mobile Legends Weekly Pass 1x free</span></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 p-3.5">
+              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="emeraldEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+            </div>
+            <div class="member-foot">
+              <button type="button" data-member-apply="emerald" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white shadow-md shadow-emerald-600/20 transition">Apply via Telegram</button>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -503,7 +643,7 @@
     </div>
     <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
     <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
-    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.1.1</p>
+    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.2.0</p>
   </footer>
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
@@ -650,6 +790,16 @@
         newsRetry: 'Retry',
         newsOpenSource: 'Open source',
         newsOpenSpotify: 'Open in Spotify',
+        newsSubtext: 'Live headlines and charts, updated from their sources.',
+        membershipHeading: 'Membership Plans',
+        membershipSubtext: 'Bundle prices for returning customers. Pick your tier, then apply on Telegram.',
+        membershipRule: 'To get this price, you must have recharged both plans at least 3 times. Eligibility is checked on Telegram before activation.',
+        membershipIncluded: 'Included',
+        membershipEligibility: 'Eligibility',
+        membershipApply: 'Apply via Telegram',
+        normalEligibility: 'Can apply only after you purchased 1 Plan from us.',
+        goldEligibility: 'Can apply only after you purchased 300,000 MMK and above from us in 1 month.',
+        emeraldEligibility: 'Can apply only after you purchased 500,000 MMK and above from us in 3 months.',
         footerPolicy: 'Policy',
         footerTerms: 'Terms and Conditions',
         footerRights: 'All rights reserved.',
@@ -679,6 +829,7 @@
           Gaming: 'Gaming',
           'Gift Cards': 'Gift Cards',
           News: 'News',
+          Membership: 'Membership',
           Admin: 'Admin'
         }
       },
@@ -711,6 +862,16 @@
         newsRetry: 'ပြန်ကြိုးစားပါ',
         newsOpenSource: 'ရင်းမြစ်ကို ဖွင့်ပါ',
         newsOpenSpotify: 'Spotify တွင် ဖွင့်ပါ',
+        newsSubtext: 'ရင်းမြစ်များမှ တိုက်ရိုက် သတင်းနှင့် ဇယားများ။',
+        membershipHeading: 'အဖွဲ့ဝင် အစီအစဉ်များ',
+        membershipSubtext: 'ပြန်လာသော ဝယ်သူများအတွက် အတွဲလိုက်ဈေးနှုန်းများ။ သင့်အဆင့်ကို ရွေးပြီး Telegram မှ လျှောက်ထားပါ။',
+        membershipRule: 'ဤဈေးနှုန်းဖြင့် ရရှိရန် အတွဲထဲရှိ ပက်ကေ့ချ် နှစ်ခုလုံးကို အနည်းဆုံး ၃ ကြိမ် ပြန်ဖြည့်ထားရပါမည်။ အရည်အချင်းကို ဖွင့်ပေးခြင်းမပြုမီ Telegram တွင် စစ်ဆေးပါမည်။',
+        membershipIncluded: 'ပါဝင်သည်',
+        membershipEligibility: 'အရည်အချင်း',
+        membershipApply: 'Telegram မှ လျှောက်ထားပါ',
+        normalEligibility: 'ကျွန်ုပ်တို့ထံမှ ပက်ကေ့ချ် ၁ ခု ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
+        goldEligibility: '၁ လအတွင်း ကျွန်ုပ်တို့ထံမှ 300,000 MMK နှင့်အထက် ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
+        emeraldEligibility: '၃ လအတွင်း ကျွန်ုပ်တို့ထံမှ 500,000 MMK နှင့်အထက် ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
         footerPolicy: 'မူဝါဒ',
         footerTerms: 'စည်းမျဉ်းစည်းကမ်းများ',
         footerRights: 'မူပိုင်ခွင့် အားလုံး လက်ဝယ်ရှိသည်။',
@@ -740,6 +901,7 @@
           Gaming: 'ဂိမ်း',
           'Gift Cards': 'လက်ဆောင်ကတ်များ',
           News: 'သတင်း',
+          Membership: 'အဖွဲ့ဝင်',
           Admin: 'စီမံခန့်ခွဲမှု'
         }
       }
@@ -1121,14 +1283,14 @@
     // --- Render Category Tabs ---
     function renderCategoryTabs() {
       const container = document.getElementById('categoryTabsContainer');
-      const categories = ['All', 'Streaming', 'Music', 'Apps', 'Gaming', 'Gift Cards', 'News', 'Admin'];
+      const categories = ['All', 'Streaming', 'Music', 'Apps', 'Gaming', 'Gift Cards', 'News', 'Membership', 'Admin'];
       const tCats = I18N[state.lang].categories;
 
       container.innerHTML = categories.map(cat => {
         const isActive = state.activeCategory === cat;
         const count = cat === 'All'
           ? state.catalog.products.filter(p => p.active).length
-          : (cat === 'Admin' || cat === 'News')
+          : (cat === 'Admin' || cat === 'News' || cat === 'Membership')
             ? null
             : state.catalog.products.filter(p => p.active && p.category === cat).length;
 
@@ -1188,14 +1350,26 @@
       const shopSec = document.getElementById('shopSection');
       const adminSec = document.getElementById('adminSection');
       const newsSec = document.getElementById('newsSection');
+      const membershipSec = document.getElementById('membershipSection');
       const promoBanner = document.getElementById('promoBannerBar');
 
       if (state.activeCategory === 'News') {
         shopSec.classList.add('hidden');
         adminSec.classList.add('hidden');
+        membershipSec.classList.add('hidden');
         promoBanner.classList.add('hidden');
         newsSec.classList.remove('hidden');
         renderNewsView();
+        return;
+      }
+
+      if (state.activeCategory === 'Membership') {
+        shopSec.classList.add('hidden');
+        adminSec.classList.add('hidden');
+        newsSec.classList.add('hidden');
+        promoBanner.classList.add('hidden');
+        membershipSec.classList.remove('hidden');
+        renderMembershipView();
         return;
       }
 
@@ -1203,6 +1377,7 @@
         shopSec.classList.add('hidden');
         adminSec.classList.remove('hidden');
         newsSec.classList.add('hidden');
+        membershipSec.classList.add('hidden');
         promoBanner.classList.add('hidden');
         renderAdminView();
         return;
@@ -1211,6 +1386,7 @@
       shopSec.classList.remove('hidden');
       adminSec.classList.add('hidden');
       newsSec.classList.add('hidden');
+      membershipSec.classList.add('hidden');
 
       if (state.promoOnly || state.priceFilter === 'promo') {
         promoBanner.classList.remove('hidden');
@@ -1649,6 +1825,7 @@
       const t = I18N[state.lang];
       const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
       setText('newsHeading', t.newsHeading);
+      setText('newsSubtext', t.newsSubtext);
       setText('newsGrammyHeading', t.newsGrammyTitle);
       setText('newsSpotifyHeading', t.newsSpotifyTitle);
       setText('newsAppleHeading', t.newsAppleTitle);
@@ -1674,6 +1851,32 @@
       if (key === 'grammy') runNewsSection('grammy', () => loadNewsFeed(NEWS_SOURCES.grammy));
       if (key === 'apple') runNewsSection('apple', loadAppleHits);
       if (key === 'music') runNewsSection('music', () => loadNewsFeed(NEWS_SOURCES.music));
+    });
+
+    function renderMembershipView() {
+      const t = I18N[state.lang];
+      const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      setText('membershipHeading', t.membershipHeading);
+      setText('membershipSubtext', t.membershipSubtext);
+      setText('membershipRule', t.membershipRule);
+      setText('normalEligibility', t.normalEligibility);
+      setText('goldEligibility', t.goldEligibility);
+      setText('emeraldEligibility', t.emeraldEligibility);
+      document.querySelectorAll('.membership-included-label').forEach(el => { el.textContent = t.membershipIncluded; });
+      document.querySelectorAll('.membership-eligibility-label').forEach(el => { el.textContent = t.membershipEligibility; });
+      document.querySelectorAll('.membership-apply-btn').forEach(el => { el.textContent = t.membershipApply; });
+    }
+
+    document.getElementById('membershipSection').addEventListener('click', (ev) => {
+      const btn = ev.target.closest('[data-member-apply]');
+      if (!btn) return;
+      const tier = btn.getAttribute('data-member-apply');
+      const msgs = {
+        normal: 'Hi NES Digital Hub! I want to apply for Normal Member (30,000 MMK ONLY). Please check my eligibility.',
+        gold: 'Hi NES Digital Hub! I want to apply for Gold Member (45,000 MMK ONLY). Please check my eligibility.',
+        emerald: 'Hi NES Digital Hub! I want to apply for Emerald Member (85,000 MMK ONLY). Please check my eligibility.'
+      };
+      if (msgs[tier]) openTelegramWithText(msgs[tier]);
     });
 
     function renderAdminView() {
