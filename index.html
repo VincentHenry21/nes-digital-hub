@@ -281,14 +281,9 @@
           <p id="adminLockDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Enter your admin passcode to edit products, MMK prices, and GitHub publishing settings.</p>
         </div>
         <div class="flex gap-2">
-          <input id="adminPasscodeInput" type="password" placeholder="Enter passcode (demo: 1234)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="adminPasscodeInput" type="password" placeholder="Enter passcode" class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <button id="unlockAdminBtn" type="button" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition">
             Unlock
-          </button>
-        </div>
-        <div class="pt-1 flex items-center justify-center gap-3">
-          <button id="quickDemoUnlockBtn" type="button" class="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline">
-            Instant Unlock (Preview Admin UI)
           </button>
         </div>
       </div>
@@ -1558,21 +1553,16 @@
       });
 
       // Admin Unlock Controls
+      var ADMIN_PASSCODE = "1818";
       document.getElementById('unlockAdminBtn').addEventListener('click', () => {
         const val = document.getElementById('adminPasscodeInput').value.trim();
-        if (val.length > 0) {
+        if (val === ADMIN_PASSCODE) {
           state.adminUnlocked = true;
           renderAdminView();
           showToast('Admin Studio unlocked');
         } else {
-          showToast('Enter any passcode (or click Instant Unlock)');
+          showToast('Wrong passcode');
         }
-      });
-
-      document.getElementById('quickDemoUnlockBtn').addEventListener('click', () => {
-        state.adminUnlocked = true;
-        renderAdminView();
-        showToast('Admin Studio unlocked');
       });
 
       document.getElementById('lockAdminBtn').addEventListener('click', () => {
