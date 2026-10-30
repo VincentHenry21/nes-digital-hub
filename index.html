@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NES Digital Hub · Digital Subscriptions, Gift Cards & Game Credits</title>
+  <link rel="icon" type="image/png" sizes="512x512" href="app-icon.png" />
+  <link rel="apple-touch-icon" href="app-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#F8FAFC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0B1124" media="(prefers-color-scheme: dark)" />
+  <meta name="description" content="NES Digital Hub: digital subscriptions, gift cards and game credit." />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +99,20 @@
       #productsGrid .prod-price > div { flex-wrap: wrap; }
       #productsGrid .prod-price .text-lg { font-size: 1rem; }
     }
+
+    /* NES Glass rebrand v2.3.0. Presentation only. No business logic, prices, wording, or destinations changed here. */
+    :focus-visible { outline: 2px solid #2563eb !important; outline-offset: 2px !important; }
+    html.dark :focus-visible { outline-color: #60a5fa !important; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+    .buy-tg-btn, .membership-apply-btn, #unlockAdminBtn, #suggestSendBtn, #rateSendBtn, #resetSearchBtn, #exitPromoBtn, .cat-tab-btn { min-height: 44px; }
+    .buy-tg-btn, .membership-apply-btn, #unlockAdminBtn, #suggestSendBtn, #rateSendBtn, #resetSearchBtn, #exitPromoBtn { display: inline-flex; align-items: center; justify-content: center; }
+    img { max-width: 100%; }
+    .prod-card, .news-card, .membership-card { overflow-wrap: anywhere; }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .backdrop-blur-md, .backdrop-blur-xl { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    }
   </style>
 </head>
 <body class="min-h-screen transition-colors duration-300 bg-slate-50 text-slate-900 dark:bg-[#070B19] dark:text-slate-100 selection:bg-blue-600 selection:text-white">
@@ -103,7 +123,7 @@
   </div>
 
   <!-- Sticky Top Navigation Bar -->
-  <header class="sticky top-0 z-30 backdrop-blur-xl bg-white/80 dark:bg-[#0B1124]/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+  <header class="sticky top-0 z-30 backdrop-blur-xl bg-white/70 dark:bg-[#0B1124]/70 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
       
       <!-- Brand Identity -->
@@ -231,9 +251,9 @@
             id="searchInput"
             type="text"
             placeholder="Search services and items (e.g. Netflix, Spotify, Gift Cards...)"
-            class="w-full pl-11 pr-10 py-3 rounded-xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition"
+            class="w-full pl-11 pr-10 py-3 rounded-xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition"
           />
-          <button id="clearSearchBtn" type="button" class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <button id="clearSearchBtn" type="button" aria-label="Clear search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -242,7 +262,7 @@
 
         <!-- Quick Sort / Price Filter Dropdown -->
         <div class="flex items-center gap-2">
-          <select id="priceFilterSelect" class="px-3.5 py-3 rounded-xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+          <select id="priceFilterSelect" class="px-3.5 py-3 rounded-xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
             <option value="all" id="filterAllOpt">All Items</option>
             <option value="priced" id="filterPricedOpt">Fixed Price Listed</option>
             <option value="promo" id="filterPromoOpt">On Promotion Only</option>
@@ -274,7 +294,7 @@
       </div>
 
       <!-- Empty State -->
-      <div id="emptyStateBox" class="hidden text-center py-16 px-4 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800">
+      <div id="emptyStateBox" class="hidden text-center py-16 px-4 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800">
         <div class="w-12 h-12 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center mx-auto mb-3">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -295,7 +315,7 @@
         <p id="newsSubtext" class="mt-1 text-sm text-slate-500 dark:text-slate-400"></p>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
-        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+        <article class="news-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4M7 4h10v6a5 5 0 01-10 0V4zM7 6H4a1 1 0 00-1 1v1a3 3 0 003 3M17 6h3a1 1 0 011 1v1a3 3 0 01-3 3"/></svg>
@@ -305,7 +325,7 @@
           </div>
           <div id="grammyBody" class="space-y-2"></div>
         </article>
-        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+        <article class="news-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -315,7 +335,7 @@
           </div>
           <div id="spotifyBody" class="space-y-3"></div>
         </article>
-        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+        <article class="news-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -325,7 +345,7 @@
           </div>
           <div id="appleBody" class="space-y-2"></div>
         </article>
-        <article class="news-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
+        <article class="news-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-sm">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 shrink-0">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6"/></svg>
@@ -351,7 +371,7 @@
         <p id="membershipRule" class="text-sm font-medium text-amber-800 dark:text-amber-200 leading-relaxed"></p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
-        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <article class="membership-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <div class="h-1.5 bg-gradient-to-r from-slate-400 to-blue-500"></div>
           <div class="member-body p-5 sm:p-6">
             <div class="flex items-center gap-3">
@@ -383,7 +403,7 @@
             </div>
           </div>
         </article>
-        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-amber-300/70 dark:border-amber-500/40 shadow-sm overflow-hidden">
+        <article class="membership-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-amber-300/70 dark:border-amber-500/40 shadow-sm overflow-hidden">
           <div class="h-1.5 bg-gradient-to-r from-amber-400 to-yellow-500"></div>
           <div class="member-body p-5 sm:p-6">
             <div class="flex items-center gap-3">
@@ -416,7 +436,7 @@
             </div>
           </div>
         </article>
-        <article class="membership-card rounded-2xl bg-white dark:bg-[#111932] border border-emerald-300/70 dark:border-emerald-500/40 shadow-sm overflow-hidden">
+        <article class="membership-card rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-emerald-300/70 dark:border-emerald-500/40 shadow-sm overflow-hidden">
           <div class="h-1.5 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
           <div class="member-body p-5 sm:p-6">
             <div class="flex items-center gap-3">
@@ -456,7 +476,7 @@
     <section id="adminSection" class="hidden space-y-6">
       
       <!-- Passcode Gate Card (shown when locked) -->
-      <div id="adminLockCard" class="max-w-md mx-auto p-6 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-lg text-center space-y-4">
+      <div id="adminLockCard" class="max-w-md mx-auto p-6 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-lg text-center space-y-4">
         <div class="w-12 h-12 rounded-2xl bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -479,7 +499,7 @@
         
         <!-- Top Admin Status & Unpublished Changes Banner -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <div class="lg:col-span-5 p-4 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shadow-sm">
+          <div class="lg:col-span-5 p-4 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shadow-sm">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -523,7 +543,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
           
           <!-- Contact & Store Settings -->
-          <div class="p-5 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div class="p-5 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Contact & Telegram Routing</h3>
@@ -554,7 +574,7 @@
           </div>
 
           <!-- GitHub Repository Publish Setup -->
-          <div class="p-5 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div class="p-5 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Publish setup (GitHub Sync)</h3>
@@ -583,7 +603,7 @@
         </div>
 
         <!-- Product Catalog Editor Header & Controls -->
-        <div class="p-5 rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <div class="p-5 rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <h3 class="text-lg font-bold text-slate-900 dark:text-white">Products & Pricing Catalog</h3>
@@ -619,7 +639,7 @@
     </div>
     <div class="mt-5 mx-auto w-full max-w-md space-y-5">
       <!-- Suggestions Box -->
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200/90 dark:border-slate-800/90 p-4">
+      <div class="rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200/90 dark:border-slate-800/90 p-4">
         <h3 id="suggestHeading" class="text-sm font-bold text-slate-900 dark:text-white mb-2">Any suggestions?</h3>
         <div class="flex gap-2">
           <input id="suggestInput" type="text" placeholder="Type your suggestion..." class="flex-1 min-w-0 px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -627,7 +647,7 @@
         </div>
       </div>
       <!-- Rate Our Service -->
-      <div class="rounded-2xl bg-white dark:bg-[#111932] border border-slate-200/90 dark:border-slate-800/90 p-4">
+      <div class="rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200/90 dark:border-slate-800/90 p-4">
         <h3 id="rateHeading" class="text-sm font-bold text-slate-900 dark:text-white mb-2">Rate Our Service</h3>
         <div id="rateStars" class="flex items-center gap-1.5" role="group" aria-label="Rate Our Service">
           <button type="button" class="rate-star-btn p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-400" data-rate="1" aria-label="Rate 1 star" aria-pressed="false"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linejoin="round"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.9 6.26L21.5 9.3l-4.9 4.5 1.3 6.7L12 17.8 6.1 20.5l1.3-6.7L2.5 9.3l6.6-1.04L12 2z" /></svg></button>
@@ -643,12 +663,12 @@
     </div>
     <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
     <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
-    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.2.0</p>
+    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.0</p>
   </footer>
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
   <div id="orderModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-    <div class="w-full max-w-md rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div class="w-full max-w-md rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       <div class="p-5 bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div id="modalProductIcon" class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center font-bold text-base">N</div>
@@ -702,7 +722,7 @@
 
   <!-- Add New Product Modal (Admin) -->
   <div id="addProductModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-    <div class="w-full max-w-md rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
+    <div class="w-full max-w-md rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
       <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <h3 class="font-bold text-base text-slate-900 dark:text-white">Add New Digital Service</h3>
         <button id="closeAddProductModalBtn" type="button" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
@@ -785,6 +805,10 @@
         newsAppleTitle: 'Apple Music Hits',
         newsMusicTitle: 'News',
         newsSource: 'Source',
+        newsGrammySource: 'Source: Google News, Grammy Awards search',
+        newsSpotifySource: 'Source: Spotify, Today\'s Top Hits playlist',
+        newsAppleSource: 'Source: Apple Music, Top Songs chart (US)',
+        newsMusicSource: 'Source: Google News, Music search',
         newsLoading: 'Loading...',
         newsLoadError: 'Couldn\'t load, tap to retry.',
         newsRetry: 'Retry',
@@ -857,6 +881,10 @@
         newsAppleTitle: 'Apple Music ဟစ်များ',
         newsMusicTitle: 'သတင်း',
         newsSource: 'ရင်းမြစ်',
+        newsGrammySource: 'ရင်းမြစ်: Google News, Grammy Awards ရှာဖွေမှု',
+        newsSpotifySource: 'ရင်းမြစ်: Spotify, Today\'s Top Hits playlist',
+        newsAppleSource: 'ရင်းမြစ်: Apple Music, Top Songs chart (US)',
+        newsMusicSource: 'ရင်းမြစ်: Google News, Music ရှာဖွေမှု',
         newsLoading: 'တင်နေသည်...',
         newsLoadError: 'တင်၍မရပါ၊ ပြန်ကြိုးစားရန် နှိပ်ပါ။',
         newsRetry: 'ပြန်ကြိုးစားပါ',
@@ -1214,6 +1242,8 @@
       document.getElementById('promoBtnText').textContent = t.promotion;
       document.getElementById('howToUseBtnText').textContent = t.howToUse;
       document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+      document.getElementById('searchInput').setAttribute('aria-label', state.lang === 'mm' ? 'ဝန်ဆောင်မှုများနှင့် ပစ္စည်းများကို ရှာဖွေရန်' : 'Search services and items');
+      document.getElementById('priceFilterSelect').setAttribute('aria-label', state.lang === 'mm' ? 'ဈေးနှုန်းအလိုက် စစ်ထုတ်ရန်' : 'Filter items by price');
       document.getElementById('supportPhoneLabel').textContent = `Customer Service: ${state.catalog.supportPhone}`;
 
       const tgHandle = state.catalog.telegramUsername || 'henzofflimits';
@@ -1296,7 +1326,7 @@
 
         const baseCls = isActive
           ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/25'
-          : 'bg-white dark:bg-[#111932] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500';
+          : 'bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500';
 
         return `
           <button
@@ -1458,7 +1488,7 @@
              </div>`;
 
         return `
-          <article class="prod-card group relative rounded-2xl bg-white dark:bg-[#111932] border border-slate-200/90 dark:border-slate-800/90 hover:border-blue-500/60 dark:hover:border-blue-500/60 p-5 shadow-sm hover:shadow-xl hover:shadow-blue-600/5 transition-all duration-200 flex flex-col justify-between">
+          <article class="prod-card group relative rounded-2xl bg-white/75 dark:bg-[#111932]/75 backdrop-blur-md border border-slate-200/90 dark:border-slate-800/90 hover:border-blue-500/60 dark:hover:border-blue-500/60 p-5 shadow-sm hover:shadow-xl hover:shadow-blue-600/5 transition-all duration-200 flex flex-col justify-between">
             <!-- Top Subtle Gradient Bar -->
             <div class="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${prod.accent || 'from-blue-600 to-indigo-600'} opacity-85"></div>
 
@@ -1830,10 +1860,10 @@
       setText('newsSpotifyHeading', t.newsSpotifyTitle);
       setText('newsAppleHeading', t.newsAppleTitle);
       setText('newsMusicHeading', t.newsMusicTitle);
-      setText('newsGrammySourceLabel', t.newsSource + ': Google News');
-      setText('newsSpotifySourceLabel', t.newsSource + ': Spotify');
-      setText('newsAppleSourceLabel', t.newsSource + ': Apple Music');
-      setText('newsMusicSourceLabel', t.newsSource + ': Google News');
+      setText('newsGrammySourceLabel', t.newsGrammySource);
+      setText('newsSpotifySourceLabel', t.newsSpotifySource);
+      setText('newsAppleSourceLabel', t.newsAppleSource);
+      setText('newsMusicSourceLabel', t.newsMusicSource);
       renderSpotifyBox();
       ['grammy', 'apple', 'music'].forEach(renderNewsBody);
       if (!newsState.attempted) {

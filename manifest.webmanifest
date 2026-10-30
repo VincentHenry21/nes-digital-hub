@@ -1,0 +1,18 @@
+{
+  "name": "NES Digital Hub",
+  "short_name": "NES Hub",
+  "description": "Digital subscriptions, gift cards and game credit.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#0B1124",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
