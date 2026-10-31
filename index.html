@@ -243,6 +243,21 @@
       </div>
     </section>
 
+    <!-- Halloween Discount Banner: 3-5% off all products, 24 hours, ends Nov 1, 2026 6:50 PM Yangon. Auto-hides after expiry. -->
+    <section id="halloweenBanner" class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-600/95 via-purple-900/95 to-slate-950/95 text-white p-5 sm:p-6 shadow-xl shadow-purple-950/30 border border-orange-400/40 mb-6" aria-label="Halloween discount">
+      <div class="absolute right-0 top-0 -mt-10 -mr-10 w-56 h-56 rounded-full bg-orange-400/20 blur-2xl pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col sm:flex-row sm:items-center gap-4">
+        <div class="shrink-0 w-14 h-14 rounded-2xl bg-orange-500/20 border border-orange-300/40 flex items-center justify-center" aria-hidden="true">
+          <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="#fdba74" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1 0-1.5 1-1.5 2C8 4.5 5.5 6 5 9c-.5 3 1 7 3.5 8.5C10 18.5 11 19 12 19s2-.5 3.5-1.5C18 16 19.5 12 19 9c-.5-3-3-4.5-5.5-4-0-1-.5-2-1.5-2z"/><path d="M9 9.5c.8-.6 1.6-.6 2.2 0M12.8 9.5c.6-.6 1.4-.6 2.2 0"/><path d="M10 13c.6.8 1.3 1.2 2 1.2s1.4-.4 2-1.2"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h2 id="halloweenTitle" class="text-lg sm:text-xl font-extrabold tracking-tight">Halloween Discount</h2>
+          <p id="halloweenSub" class="text-xs sm:text-sm text-orange-100/90 mt-0.5">3-5% off all products, 24 hours only. Discount applied at order, confirm on Telegram.</p>
+          <p class="text-xs sm:text-sm font-bold mt-2"><span id="halloweenEndsLabel">Ends in</span> <span id="halloweenCountdown" class="tabular-nums text-amber-300">--:--:--</span></p>
+        </div>
+      </div>
+    </section>
+
     <!-- Search & Category Filter Bar -->
     <section class="mb-6 space-y-3.5">
       <div class="flex flex-col sm:flex-row gap-3">
@@ -667,7 +682,7 @@
     </div>
     <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
     <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
-    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.1</p>
+    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.2</p>
   </footer>
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
@@ -802,6 +817,9 @@
         filterPriced: 'Fixed Price Listed',
         filterPromo: 'On Promotion Only',
         promoBanner: 'Showing special promotion items. Select a plan to order at promo rates!',
+        halloweenTitle: 'Halloween Discount',
+        halloweenSub: '3-5% off all products, 24 hours only. Discount applied at order, confirm on Telegram.',
+        halloweenEnds: 'Ends in',
         showAll: 'Show All',
         newsHeading: 'News and Hits',
         newsGrammyTitle: 'Grammy',
@@ -878,6 +896,9 @@
         filterPriced: 'ဈေးနှုန်းဖော်ပြထားသော',
         filterPromo: 'ပရိုမိုးရှင်း သီးသန့်',
         promoBanner: 'အထူးပရိုမိုးရှင်း ပစ္စည်းများကို ပြသထားပါသည်။ ပက်ကေ့ချ်ရွေးချယ်ပြီး ဝယ်ယူနိုင်ပါသည်!',
+        halloweenTitle: 'Halloween အထူးလျှော့ဈေး',
+        halloweenSub: 'ပစ္စည်းအားလုံး 3-5% လျှော့ဈေး၊ ၂၄ နာရီသာ။ Telegram မှ မှာယူစဉ် လျှော့ဈေး ထည့်ပေးပါမည်။',
+        halloweenEnds: 'ကုန်ဆုံးရန်',
         showAll: 'အားလုံးပြန်ပြရန်',
         newsHeading: 'သတင်းနှင့် ဟစ်များ',
         newsGrammyTitle: 'ဂရမ်မီ',
@@ -1258,6 +1279,7 @@
       document.getElementById('filterPricedOpt').textContent = t.filterPriced;
       document.getElementById('filterPromoOpt').textContent = t.filterPromo;
       document.getElementById('promoActiveBannerText').textContent = t.promoBanner;
+      if (document.getElementById('halloweenTitle')) { document.getElementById('halloweenTitle').textContent = t.halloweenTitle; document.getElementById('halloweenSub').textContent = t.halloweenSub; document.getElementById('halloweenEndsLabel').textContent = t.halloweenEnds; }
       document.getElementById('exitPromoBtn').textContent = t.showAll;
 
       document.getElementById('step1Title').textContent = t.step1Title;
@@ -1597,8 +1619,8 @@
       document.getElementById('modalSellerHandle').textContent = `@${tgUser}`;
 
       const msg = state.lang === 'mm'
-        ? `မင်္ဂလာပါ NES Digital Hub၊ ${prod.name} (${plan.label}) - ${formattedPrice} ဝယ်ယူလိုပါသည်။`
-        : `Hi NES Digital Hub! I'd like to order:\n• Service: ${prod.name}\n• Plan: ${plan.label}\n• Price: ${formattedPrice}`;
+        ? `မင်္ဂလာပါ NES Digital Hub၊ ${prod.name} (${plan.label}) - ${formattedPrice} ဝယ်ယူလိုပါသည်။` + (halloweenActive() ? ' Halloween လျှော့ဈေး 3-5% ထည့်ပေးပါ။' : '')
+        : `Hi NES Digital Hub! I'd like to order:\n• Service: ${prod.name}\n• Plan: ${plan.label}\n• Price: ${formattedPrice}` + (halloweenActive() ? '\n• Halloween discount: 3-5% off, please apply' : '');
 
       document.getElementById('orderMessagePreview').value = msg;
       document.getElementById('confirmTelegramBtn').href = `https://t.me/${tgUser}?text=${encodeURIComponent(msg)}`;
@@ -2113,6 +2135,21 @@
       });
     }
 
+    // --- Halloween Discount: ends Nov 1, 2026 6:50 PM Yangon, 24 hours after the Oct 31 request. Banner auto-hides after expiry, and the order note is only added while active. No catalog prices are changed; the 3-5% discount is applied at order via Telegram.
+    function halloweenEndTime() { return new Date('2026-11-01T18:50:00+06:30').getTime(); }
+    function halloweenActive() { return Date.now() < halloweenEndTime(); }
+    function updateHalloweenBanner() {
+      var el = document.getElementById('halloweenBanner');
+      if (!el) return;
+      var diff = halloweenEndTime() - Date.now();
+      if (diff <= 0) { el.classList.add('hidden'); return; }
+      el.classList.remove('hidden');
+      var h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), sec = Math.floor((diff % 60000) / 1000);
+      var pad = function (n) { return String(n).padStart(2, '0'); };
+      var cd = document.getElementById('halloweenCountdown');
+      if (cd) cd.textContent = pad(h) + ':' + pad(m) + ':' + pad(sec);
+    }
+
     // --- Master Render ---
     function renderAll() {
       renderHeaderAndLabels();
@@ -2207,6 +2244,8 @@
       await loadPublishedCatalog();
       loadSavedState();
       renderAll();
+      updateHalloweenBanner();
+      setInterval(updateHalloweenBanner, 1000);
       setInterval(updateClockAndGreeting, 1000);
 
       // Brand Home click resets to All
