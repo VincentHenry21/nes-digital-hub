@@ -655,6 +655,8 @@
     <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium">
       <a id="footerPolicyLink" data-i18n="footerPolicy" href="policy.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Policy</a>
       <a id="footerTermsLink" data-i18n="footerTerms" href="terms.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Terms and Conditions</a>
+      <a id="footerRefundLink" data-i18n="footerRefund" href="refund.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Refund Policy</a>
+      <a id="footerCookiesLink" data-i18n="footerCookies" href="cookies.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Cookies Policy</a>
     </div>
     <div class="mt-5 mx-auto w-full max-w-md space-y-5">
       <!-- Suggestions Box -->
@@ -682,7 +684,7 @@
     </div>
     <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
     <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
-    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.2</p>
+    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.3</p>
   </footer>
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
@@ -846,7 +848,9 @@
         normalEligibility: 'Can apply only after you purchased 1 Plan from us.',
         goldEligibility: 'Can apply only after you purchased 300,000 MMK and above from us in 1 month.',
         emeraldEligibility: 'Can apply only after you purchased 500,000 MMK and above from us in 3 months.',
-        footerPolicy: 'Policy',
+        footerPolicy: 'Privacy Policy',
+        footerRefund: 'Refund Policy',
+        footerCookies: 'Cookies Policy',
         footerTerms: 'Terms and Conditions',
         footerRights: 'All rights reserved.',
         footerDeveloped: 'Developed By NXT:Labs',
@@ -925,7 +929,9 @@
         normalEligibility: 'ကျွန်ုပ်တို့ထံမှ ပက်ကေ့ချ် ၁ ခု ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
         goldEligibility: '၁ လအတွင်း ကျွန်ုပ်တို့ထံမှ 300,000 MMK နှင့်အထက် ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
         emeraldEligibility: '၃ လအတွင်း ကျွန်ုပ်တို့ထံမှ 500,000 MMK နှင့်အထက် ဝယ်ယူပြီးမှသာ လျှောက်ထားနိုင်ပါသည်။',
-        footerPolicy: 'မူဝါဒ',
+        footerPolicy: 'ကိုယ်ရေးအချက်အလက် မူဝါဒ',
+        footerRefund: 'ငွေပြန်အမ်းခြင်း မူဝါဒ',
+        footerCookies: 'ကွတ်ကီး မူဝါဒ',
         footerTerms: 'စည်းမျဉ်းစည်းကမ်းများ',
         footerRights: 'မူပိုင်ခွင့် အားလုံး လက်ဝယ်ရှိသည်။',
         footerDeveloped: 'Developed By NXT:Labs',
@@ -1293,6 +1299,8 @@
 
       document.getElementById('footerPolicyLink').textContent = t.footerPolicy;
       document.getElementById('footerTermsLink').textContent = t.footerTerms;
+      document.getElementById('footerRefundLink').textContent = t.footerRefund;
+      document.getElementById('footerCookiesLink').textContent = t.footerCookies;
       document.getElementById('footerRightsText').textContent = t.footerRights;
       document.getElementById('footerDevelopedText').textContent = t.footerDeveloped;
       document.getElementById('suggestHeading').textContent = t.suggestHeading;
