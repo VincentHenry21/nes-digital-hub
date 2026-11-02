@@ -657,6 +657,7 @@
       <a id="footerTermsLink" data-i18n="footerTerms" href="terms.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Terms and Conditions</a>
       <a id="footerRefundLink" data-i18n="footerRefund" href="refund.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Refund Policy</a>
       <a id="footerCookiesLink" data-i18n="footerCookies" href="cookies.html" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Cookies Policy</a>
+      <button id="footerConsentLink" type="button" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition">Terms and Cookies Consent</button>
     </div>
     <div class="mt-5 mx-auto w-full max-w-md space-y-5">
       <!-- Suggestions Box -->
@@ -684,7 +685,7 @@
     </div>
     <p class="mt-3 text-center text-xs text-slate-500 dark:text-slate-400">© 2026 NES Digital Hub. <span id="footerRightsText" data-i18n="footerRights">All rights reserved.</span></p>
     <p id="footerDevelopedText" data-i18n="footerDeveloped" class="mt-1 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">Developed By NXT:Labs</p>
-    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.3</p>
+    <p class="mt-1 text-center text-xs text-slate-500 dark:text-slate-400">v2.3.4</p>
   </footer>
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
@@ -799,6 +800,21 @@
     <span id="toastText">Saved!</span>
   </div>
 
+
+  <!-- First-visit Terms and Cookies agreement: shown until the visitor taps Agree.
+       It has no close button and no backdrop dismiss, by design, so agreement is
+       required before using the shop. Accepted once, stored in localStorage. -->
+  <div id="consentModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="consentHeading">
+    <div class="w-full max-w-md rounded-2xl bg-white dark:bg-[#111932] border border-slate-200 dark:border-white/15 shadow-2xl overflow-hidden">
+      <div class="p-5 space-y-4">
+        <h2 id="consentHeading" class="font-bold text-base text-slate-900 dark:text-white">Before you use NES Digital Hub</h2>
+        <p id="consentText" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">To use this website, please agree to our <a href="terms.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Terms and Conditions</a> and our <a href="cookies.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Cookies Policy</a>. The links open in a new tab, so you can read them without losing this screen.</p>
+        <p id="consentNote" class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">This website does not set cookies itself. It only stores your language choice, your own service rating, admin drafts, and this agreement on your device.</p>
+        <button id="consentAgreeBtn" type="button" class="w-full py-3 px-4 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition">I agree to the Terms and Cookies Policy</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // --- Bilingual Dictionary (EN & Myanmar) ---
     const I18N = {
@@ -854,6 +870,11 @@
         footerTerms: 'Terms and Conditions',
         footerRights: 'All rights reserved.',
         footerDeveloped: 'Developed By NXT:Labs',
+        consentHeading: 'Before you use NES Digital Hub',
+        consentText: 'To use this website, please agree to our <a href="terms.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Terms and Conditions</a> and our <a href="cookies.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Cookies Policy</a>. The links open in a new tab, so you can read them without losing this screen.',
+        consentNote: 'This website does not set cookies itself. It only stores your language choice, your own service rating, admin drafts, and this agreement on your device.',
+        consentAgree: 'I agree to the Terms and Cookies Policy',
+        footerConsent: 'Terms and Cookies Consent',
         suggestHeading: 'Any suggestions?',
         suggestPlaceholder: 'Type your suggestion...',
         suggestSend: 'Send',
@@ -935,6 +956,11 @@
         footerTerms: 'စည်းမျဉ်းစည်းကမ်းများ',
         footerRights: 'မူပိုင်ခွင့် အားလုံး လက်ဝယ်ရှိသည်။',
         footerDeveloped: 'Developed By NXT:Labs',
+        consentHeading: 'NES Digital Hub ကို အသုံးမပြုမီ',
+        consentText: 'ဤဝဘ်ဆိုက်ကို အသုံးပြုရန် ကျွန်ုပ်တို့၏ <a href="terms.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">စည်းမျဉ်းစည်းကမ်းများ</a> နှင့် <a href="cookies.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">ကွတ်ကီး မူဝါဒ</a> ကို သဘောတူပါ။ လင့်ခ်များသည် တက်ဘ်အသစ်တွင် ပွင့်သောကြောင့် ဤမျက်နှာပြင်ကို မဆုံးရှုံးဘဲ ဖတ်ရှုနိုင်ပါသည်။',
+        consentNote: 'ဤဝဘ်ဆိုက်သည် ကွတ်ကီးများကို ကိုယ်တိုင် မသတ်မှတ်ပါ။ သင့်စက်၌ ဘာသာစကား ရွေးချယ်မှု၊ သင်၏ ဝန်ဆောင်မှု အဆင့်သတ်မှတ်ချက်၊ အက်ဒမင် မူကြမ်းများနှင့် ဤသဘောတူညီချက်ကိုသာ သိမ်းဆည်းပါသည်။',
+        consentAgree: 'စည်းမျဉ်းများနှင့် ကွတ်ကီး မူဝါဒကို သဘောတူပါသည်',
+        footerConsent: 'စည်းမျဉ်းများနှင့် ကွတ်ကီး သဘောတူညီချက်',
         suggestHeading: 'အကြံပြုချက်များ ရှိပါသလား။',
         suggestPlaceholder: 'သင့်အကြံပြုချက်ကို ရိုက်ထည့်ပါ...',
         suggestSend: 'ပို့ရန်',
@@ -1438,6 +1464,16 @@
       document.getElementById('footerCookiesLink').textContent = t.footerCookies;
       document.getElementById('footerRightsText').textContent = t.footerRights;
       document.getElementById('footerDevelopedText').textContent = t.footerDeveloped;
+      const consentHeadingEl = document.getElementById('consentHeading');
+      if (consentHeadingEl) consentHeadingEl.textContent = t.consentHeading;
+      const consentTextEl = document.getElementById('consentText');
+      if (consentTextEl) consentTextEl.innerHTML = t.consentText;
+      const consentNoteEl = document.getElementById('consentNote');
+      if (consentNoteEl) consentNoteEl.textContent = t.consentNote;
+      const consentAgreeEl = document.getElementById('consentAgreeBtn');
+      if (consentAgreeEl) consentAgreeEl.textContent = t.consentAgree;
+      const footerConsentEl = document.getElementById('footerConsentLink');
+      if (footerConsentEl) footerConsentEl.textContent = t.footerConsent;
       document.getElementById('suggestHeading').textContent = t.suggestHeading;
       document.getElementById('suggestInput').placeholder = t.suggestPlaceholder;
       document.getElementById('suggestSendBtn').textContent = t.suggestSend;
@@ -1541,13 +1577,17 @@
     };
     // Full logo URLs for brands Simple Icons does not carry.
     // CapCut and ChatGPT (OpenAI mark) via LobeHub icons CDN, documented at
-    // unpkg.com/@lobehub/icons-static-svg; Mobile Legends via Iconify Arcticons.
+    // unpkg.com/@lobehub/icons-static-svg. Mobile Legends uses the local logo
+    // file he supplied (mlbb-logo.jpg, tightly cropped from his upload),
+    // replacing the earlier Iconify Arcticons URL.
     const BRAND_URLS = {
       'capcut-pro': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/capcut.svg',
-      'chatgpt-plus': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg',
-      'mlbb-diamonds': 'https://api.iconify.design/arcticons/mobile-legends-bang-bang-alt.svg'
+      'chatgpt-plus': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg'
     };
     function brandLogoHtml(prod) {
+      // Mobile Legends wordmark is wide, so it fills the tile width instead of
+      // the usual 28px square, or it would render unreadably small.
+      if (prod.id === 'mlbb-diamonds') return `<img src="mlbb-logo.jpg" alt="${prod.name} logo" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span style="display:none">${getCategoryIconSvg(prod.iconType)}</span>`;
       const logoUrl = BRAND_URLS[prod.id];
       if (logoUrl) return `<img src="${logoUrl}" alt="${prod.name} logo" class="w-7 h-7 object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span style="display:none">${getCategoryIconSvg(prod.iconType)}</span>`;
       const slug = BRAND_LOGOS[prod.id];
@@ -2391,8 +2431,43 @@
       });
     }
 
+
+    // --- First-visit Terms and Cookies agreement ---
+    const CONSENT_KEY = 'nes_hub_consent';
+    function consentAccepted() {
+      try { return localStorage.getItem(CONSENT_KEY) === 'accepted'; } catch (e) { return false; }
+    }
+    function showConsentModal() {
+      const modal = document.getElementById('consentModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      const agreeBtn = document.getElementById('consentAgreeBtn');
+      if (agreeBtn) agreeBtn.focus();
+    }
+    function hideConsentModal() {
+      const modal = document.getElementById('consentModal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    function initConsent() {
+      const agreeBtn = document.getElementById('consentAgreeBtn');
+      if (agreeBtn) agreeBtn.addEventListener('click', () => {
+        try {
+          localStorage.setItem(CONSENT_KEY, 'accepted');
+          localStorage.setItem('nes_hub_consent_date', new Date().toISOString());
+        } catch (e) {}
+        hideConsentModal();
+      });
+      const footerConsentBtn = document.getElementById('footerConsentLink');
+      if (footerConsentBtn) footerConsentBtn.addEventListener('click', showConsentModal);
+      if (!consentAccepted()) showConsentModal();
+    }
+
     // --- Initialize Event Listeners ---
     window.addEventListener('DOMContentLoaded', async () => {
+      initConsent();
       initFooterFeedback();
       await loadPublishedCatalog();
       loadSavedState();
