@@ -39,24 +39,28 @@
       "selectedPlanIndex": 0,
       "plans": [
         {
-          "label": "1 Month",
+          "label": "Individual 1 Month",
           "price": ""
         },
         {
-          "label": "3 Months",
-          "price": ""
+          "label": "Individual 3 Months",
+          "price": "22,000 MMK"
         },
         {
-          "label": "12 Months",
-          "price": ""
+          "label": "Individual 6 Months",
+          "price": "44,000 MMK"
+        },
+        {
+          "label": "Individual 1 Year",
+          "price": "81,000 MMK"
         },
         {
           "label": "Family 3 Months",
-          "price": ""
+          "price": "14,000 MMK"
         },
         {
           "label": "Family 6 Months",
-          "price": ""
+          "price": "28,000 MMK"
         },
         {
           "label": "Family 1 Year",
@@ -78,16 +82,20 @@
       "selectedPlanIndex": 0,
       "plans": [
         {
-          "label": "1 Month",
+          "label": "Individual 1 Month",
           "price": "5,500 MMK"
         },
         {
-          "label": "3 Months",
-          "price": ""
+          "label": "Family 1 Month",
+          "price": "6,000 MMK"
         },
         {
-          "label": "12 Months",
-          "price": ""
+          "label": "Family 3 Months",
+          "price": "12,000 MMK"
+        },
+        {
+          "label": "Family 6 Months",
+          "price": "24,000 MMK"
         }
       ]
     },
@@ -106,11 +114,42 @@
       "plans": [
         {
           "label": "1 Month",
-          "price": ""
+          "price": "16,500 MMK"
         },
         {
-          "label": "12 Months",
-          "price": ""
+          "label": "3 Months",
+          "price": "37,000 MMK"
+        },
+        {
+          "label": "6 Months",
+          "price": "75,000 MMK"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-plus",
+      "name": "ChatGPT Plus",
+      "category": "Apps",
+      "accent": "from-emerald-500 to-teal-600",
+      "badgeBg": "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": false,
+      "descEn": "ChatGPT Plus subscription. Shared account, no limits, 1 device only.",
+      "descMm": "ChatGPT Plus စာရင်းသွင်းခြင်း။ မျှဝေထားသော အကောင့်၊ ကန့်သတ်ချက်မရှိ၊ စက်တစ်လုံးသာ။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "1 Month",
+          "price": "15,500 MMK"
+        },
+        {
+          "label": "3 Months",
+          "price": "46,000 MMK"
+        },
+        {
+          "label": "6 Months",
+          "price": "94,500 MMK"
         }
       ]
     },
@@ -129,15 +168,15 @@
       "plans": [
         {
           "label": "3 Months",
-          "price": ""
+          "price": "48,000 MMK"
         },
         {
           "label": "6 Months",
-          "price": ""
+          "price": "73,000 MMK"
         },
         {
-          "label": "12 Months",
-          "price": ""
+          "label": "1 Year",
+          "price": "130,000 MMK"
         }
       ]
     },
