@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>NES Digital Hub - How to use</title>
 <style>
 
 :root { --grad1: #1800AD; --grad2: #133DD6; --grad3: #0D7BFF; --mark: #1061ED; --surface: #ffffff; --surface2: #eef2fb; --text: #111827; --muted: #5b6472; --border: #dde3ef; }
 [data-theme="dark"] { --surface: #141b33; --surface2: #1c2547; --text: #f2f5ff; --muted: #aab3c8; --border: #2a3458; }
 * { box-sizing: border-box; }
-body { margin: 0; font-family: -apple-system, Helvetica, Arial, sans-serif; background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); background-attachment: fixed; min-height: 100vh; color: var(--text); }
+body { margin: 0; font-family: 'Inter', 'Noto Sans Myanmar', system-ui, sans-serif; background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); background-attachment: fixed; min-height: 100vh; color: var(--text); }
 .topbar { width: 100%; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 16px max(14px, env(safe-area-inset-right)) 6px max(14px, env(safe-area-inset-left)); color: #ffffff; }
 .logo { height: 48px; width: auto; }
 .wordmark { font-size: 23px; font-weight: 800; letter-spacing: 0.2px; flex: 1; min-width: 150px; }
@@ -21,9 +24,9 @@ body { margin: 0; font-family: -apple-system, Helvetica, Arial, sans-serif; back
 .langtoggle button[aria-pressed="true"] { background: #fff; color: var(--mark); }
 .navlink { border: 1px solid rgba(255,255,255,0.6); color: #fff; border-radius: 999px; padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 700; text-decoration: none; background: rgba(255,255,255,0.12); }
 main { width: 100%; margin: 0 auto; padding: 14px max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
-.pagetitle { color: #ffffff; font-size: 24px; font-weight: 800; margin: 8px 0 16px; }
+.pagetitle { color: #ffffff; font-size: 28px; font-weight: 800; margin: 8px 0 16px; }
 .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; overflow-wrap: anywhere; }
+.card { background: rgba(255, 255, 255, .72); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border: 1px solid rgba(255, 255, 255, .55); border-radius: 22px; padding: 16px; overflow-wrap: anywhere; }
 .card-head { display: flex; align-items: center; gap: 10px; }
 .caticon { width: 40px; height: 40px; border-radius: 12px; background: var(--surface2); color: var(--mark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .caticon svg { width: 22px; height: 22px; }
@@ -34,11 +37,11 @@ main { width: 100%; margin: 0 auto; padding: 14px max(14px, env(safe-area-inset-
 .chip { border: 1px solid var(--border); background: var(--surface2); color: var(--text); border-radius: 999px; padding: 7px 13px; font-size: 14px; cursor: pointer; }
 .chip[aria-pressed="true"] { background: var(--mark); color: #fff; border-color: var(--mark); font-weight: 700; }
 .price { font-size: 20px; font-weight: 800; margin: 14px 0 10px; }
-.buy { display: inline-flex; align-items: center; gap: 6px; background: var(--mark); color: #fff; border: 0; border-radius: 12px; padding: 12px 18px; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none; width: 100%; justify-content: center; }
+.buy { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--grad1), var(--grad2) 52%, var(--grad3)); color: #fff; border: 0; border-radius: 14px; min-height: 44px; padding: 12px 18px; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none; width: 100%; justify-content: center; }
 .buy svg { width: 18px; height: 18px; }
-.noresults { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; text-align: center; overflow-wrap: anywhere; }
+.noresults { background: rgba(255, 255, 255, .72); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border: 1px solid rgba(255, 255, 255, .55); border-radius: 22px; padding: 20px; text-align: center; overflow-wrap: anywhere; }
 .noresults p { color: var(--muted); }
-.step { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; overflow-wrap: anywhere; }
+.step { background: rgba(255, 255, 255, .72); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border: 1px solid rgba(255, 255, 255, .55); border-radius: 22px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; overflow-wrap: anywhere; }
 .stepnum { width: 36px; height: 36px; border-radius: 50%; background: var(--mark); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
 .step p { margin: 0; font-size: 16px; line-height: 1.5; }
 .footer { width: 100%; margin: 0 auto; padding: 8px max(14px, env(safe-area-inset-right)) 28px max(14px, env(safe-area-inset-left)); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: rgba(255,255,255,0.9); font-size: 14px; }
@@ -46,8 +49,13 @@ main { width: 100%; margin: 0 auto; padding: 14px max(14px, env(safe-area-inset-
 .footer-support { display: flex; align-items: center; gap: 8px; width: 100%; }
 .footer-support svg { width: 18px; height: 18px; flex-shrink: 0; }
 .footer-support a { color: #fff; font-weight: 700; }
+.footer-legal { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; align-items: center; }
+.footer-legal a { color: #fff; font-weight: 700; }
+.footer-legal span { opacity: 0.9; }
 .hidden { display: none !important; }
-:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+:focus-visible { outline: 3px solid rgba(13, 123, 255, .45); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+[data-theme="dark"] .card, [data-theme="dark"] .noresults, [data-theme="dark"] .step { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .16); }
 @media (min-width: 700px) {
   .topbar, main, .footer { width: min(1020px, 100%); }
   .topbar { padding: 28px max(24px, env(safe-area-inset-right)) 10px max(24px, env(safe-area-inset-left)); gap: 14px; }
@@ -97,6 +105,8 @@ main { width: 100%; margin: 0 auto; padding: 14px max(14px, env(safe-area-inset-
   <span id="footer-note">NES Digital Hub. Prices in MMK. Orders are placed with the admin on Telegram.</span>
   <span id="footer-copy">&copy; 2026 NES Digital Hub. All rights reserved.</span>
   <div class="footer-support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0"/><rect x="3" y="12" width="4" height="7" rx="2"/><rect x="17" y="12" width="4" height="7" rx="2"/><path d="M19 19a3 3 0 0 1-3 3h-3"/></svg><span id="support-label">Customer Service</span>: <a href="tel:+959457322394">09457322394</a></div>
+<div class="footer-legal"><a href="policy.html">Privacy Policy</a><a href="terms.html">Terms and Conditions</a><a href="refund.html">Refund Policy</a><a href="cookies.html">Cookies Policy</a><span>Developed By NXT:Labs</span></div>
+<span class="footer-version">Footer v3.0.0</span>
 </footer>
 <script>
 var I18N = {
