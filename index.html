@@ -205,6 +205,16 @@
     @keyframes music-eqb { 0%, 100% { height: 28%; } 50% { height: 100%; } }
     .music-yt-host { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
     .music-spinner { width: 17px; height: 17px; border-radius: 50%; display: block; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; animation: music-spin 0.7s linear infinite; }
+
+    /* Profile tab only, reminder-app style. Glass recipe and gradient match v3.0.0. */
+    .profile-glass { background-color: rgba(255, 255, 255, .72); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border: 1px solid rgba(255, 255, 255, .55); border-radius: 22px; box-shadow: var(--nes-shadow); }
+    html.dark .profile-glass { background-color: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .16); box-shadow: var(--nes-shadow-dark); }
+    .profile-avatar { background-image: linear-gradient(135deg, #1800AD 0%, #133DD6 52%, #0D7BFF 100%); }
+    .profile-cal-day { min-height: 44px; }
+    .profile-cal-day:hover { background: rgba(13, 123, 255, .10); }
+    .profile-cal-selected { background-image: linear-gradient(135deg, #1800AD 0%, #133DD6 52%, #0D7BFF 100%) !important; color: #fff !important; }
+    .profile-cal-selected .profile-cal-dot { background: #fff !important; }
+    .profile-quick-tile { min-height: 44px; }
   </style>
 </head>
 <body class="min-h-screen transition-colors duration-300 bg-[#F4F6FB] text-slate-900 dark:bg-[#070B16] dark:text-slate-100 selection:bg-blue-600 selection:text-white">
@@ -1031,6 +1041,30 @@
         profileErrNoAccount: 'No account on this device yet. Sign up first.',
         profileErrWrong: 'Wrong name or password.',
         profileErrSecure: 'Sign-in needs a secure connection. Open this page over https and try again.',
+        profileTotalSpending: 'TOTAL SPENDING',
+        profileActiveSubs: 'active subscriptions',
+        profileNoPurchases: 'No purchases in {m}',
+        profilePricedNote: '{n} priced',
+        profileUnpricedNote: '{n} without a listed price',
+        profileQuickAdd: 'Add',
+        profileQuickShop: 'Shop',
+        profileQuickRenewNext: 'Renew next',
+        profileQuickSeeAll: 'My services',
+        profileUpcoming: 'Upcoming renewals',
+        profileSeeAll: 'See all',
+        profileShowLess: 'Show less',
+        profileCalendar: 'Renewal calendar',
+        profileNoRenewalsDay: 'No renewals on this day.',
+        profileRenewalsCount: 'renewals',
+        profileToday: 'Today',
+        profilePillToday: 'TODAY',
+        profilePillTomorrow: 'TOMORROW',
+        profilePillInDays: 'IN {n} DAYS',
+        profilePillExpired: 'EXPIRED',
+        profilePillActive: 'ACTIVE',
+        profileRenews: 'Renews',
+        profileExpiredOn: 'Expired',
+        profileNoRenewNext: 'No service with an expiry date to renew yet.',
         musicPlay: 'Play 3 Strikes',
         musicPause: 'Pause',
         musicClose: 'Close player',
@@ -1156,6 +1190,30 @@
         profileErrNoAccount: 'ဤစက်တွင် အကောင့်မရှိသေးပါ။ အရင် အကောင့်ဖွင့်ပါ။',
         profileErrWrong: 'အမည် သို့မဟုတ် စကားဝှက် မှားနေပါသည်။',
         profileErrSecure: 'လုံခြုံသော ဆက်သွယ်မှု လိုအပ်ပါသည်။ https ဖြင့် ဖွင့်ပြီး ထပ်စမ်းပါ။',
+        profileTotalSpending: 'စုစုပေါင်း သုံးစွဲမှု',
+        profileActiveSubs: 'သုံးစွဲနေသော ဝန်ဆောင်မှုများ',
+        profileNoPurchases: '{m} တွင် ဝယ်ယူမှု မရှိပါ',
+        profilePricedNote: '{n} ခု ဈေးနှုန်းပါ',
+        profileUnpricedNote: '{n} ခု ဈေးနှုန်း မဖော်ပြထား',
+        profileQuickAdd: 'ထည့်ရန်',
+        profileQuickShop: 'ဆိုင်',
+        profileQuickRenewNext: 'နောက်တစ်ခုတိုးရန်',
+        profileQuickSeeAll: 'ကျွန်ုပ်၏ ဝန်ဆောင်မှုများ',
+        profileUpcoming: 'သက်တမ်းတိုးရမည့်များ',
+        profileSeeAll: 'အားလုံးကြည့်ရန်',
+        profileShowLess: 'အနည်းငယ်သာ ပြရန်',
+        profileCalendar: 'သက်တမ်းကုန်မည့် ပြက္ခဒိန်',
+        profileNoRenewalsDay: 'ဤနေ့တွင် သက်တမ်းတိုးစရာ မရှိပါ။',
+        profileRenewalsCount: 'ခု သက်တမ်းတိုးရန်',
+        profileToday: 'ယနေ့',
+        profilePillToday: 'ယနေ့',
+        profilePillTomorrow: 'မနက်ဖြန်',
+        profilePillInDays: 'နောက် {n} ရက်',
+        profilePillExpired: 'သက်တမ်းကုန်ပြီး',
+        profilePillActive: 'သုံးစွဲနေဆဲ',
+        profileRenews: 'သက်တမ်းတိုးရမည်',
+        profileExpiredOn: 'သက်တမ်းကုန်သွားပြီ',
+        profileNoRenewNext: 'သက်တမ်းကုန်မည့်ရက်ပါသော ဝန်ဆောင်မှု မရှိသေးပါ။',
         musicPlay: '3 Strikes ဖွင့်ရန်',
         musicPause: 'ရပ်ရန်',
         musicClose: 'ပိတ်ရန်',
@@ -2734,30 +2792,104 @@
     }
     function fmtDate(d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
     function localTodayStr() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+    // --- Profile redesign: reminder-app style (Profile tab only) ---
+    // State lives outside renderProfileView so month navigation, the selected
+    // calendar day and the See all toggle survive a re-render.
+    let profileSpendYear = null, profileSpendMonth = null;
+    let profileCalYear = null, profileCalMonth = null, profileCalSelected = null;
+    let profileShowAllUpcoming = false;
+    let profileScrollTo = null;
+    function profileGreeting() {
+      // Same hour rules as updateClockAndGreeting, greeting text only.
+      const hours = new Date().getHours();
+      if (state.lang === 'mm') {
+        if (hours < 12) return 'မင်္ဂလာနံနက်ခင်းပါ';
+        if (hours >= 16 && hours < 20) return 'မင်္ဂလာညနေခင်းပါ';
+        if (hours >= 20) return 'မင်္ဂလာညချမ်းပါ';
+        return 'မင်္ဂလာနေ့လယ်ခင်းပါ';
+      }
+      if (hours < 12) return 'Good Morning';
+      if (hours >= 17 && hours < 21) return 'Good Evening';
+      if (hours >= 21) return 'Good Night';
+      return 'Good Afternoon';
+    }
+    function profileDayKey(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+    function profilePlanOf(svc) {
+      const prod = state.catalog.products.find(function (x) { return x.id === svc.productId; });
+      if (!prod) return { prod: null, plan: null };
+      return { prod: prod, plan: prod.plans.find(function (pl) { return pl.label === svc.planLabel; }) || null };
+    }
+    function profilePlanPriceNum(svc) {
+      const found = profilePlanOf(svc);
+      if (!found.plan || !found.plan.price || !String(found.plan.price).trim()) return null;
+      if (/usd/i.test(String(found.plan.price))) return null;
+      const digits = String(found.plan.price).replace(/[^0-9]/g, '');
+      if (!digits) return null;
+      return parseInt(digits, 10);
+    }
+    function profilePlanPriceLabel(svc) {
+      const found = profilePlanOf(svc);
+      const label = found.plan ? formatPriceLabel(found.plan.price) : null;
+      return label || tAskAdmin();
+      function tAskAdmin() { return state.lang === 'mm' ? 'ဈေးနှုန်းအတွက် မေးမြန်းရန်' : 'Ask admin for the price'; }
+    }
+    function profileStatusOf(exp, today) {
+      if (!exp) return { key: 'noexpiry', cls: 'bg-slate-500/15 text-slate-600 dark:text-slate-300 border-slate-500/30', dot: 'bg-slate-400', pill: null };
+      const diffDays = Math.round((exp.getTime() - today.getTime()) / 86400000);
+      if (diffDays < 0) return { key: 'expired', cls: 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30', dot: 'bg-red-500', pill: 'expired', diff: diffDays };
+      if (diffDays <= 7) return { key: 'soon', cls: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30', dot: 'bg-amber-500', pill: 'soon', diff: diffDays };
+      return { key: 'active', cls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30', dot: 'bg-emerald-500', pill: 'active', diff: diffDays };
+    }
+    function profilePillText(st, t) {
+      if (st.key === 'expired') return t.profilePillExpired;
+      if (st.key === 'noexpiry') return t.profilePillActive;
+      if (st.diff === 0) return t.profilePillToday;
+      if (st.diff === 1) return t.profilePillTomorrow;
+      if (st.diff <= 7) return t.profilePillInDays.replace('{n}', String(st.diff));
+      return t.profilePillActive;
+    }
+    function profileMonthLabel(y, m) { return new Date(y, m, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); }
     function renderProfileView() {
       const body = document.getElementById('profileBody');
       if (!body) return;
       const t = I18N[state.lang];
+      const now = new Date();
+      if (profileSpendYear === null) { profileSpendYear = now.getFullYear(); profileSpendMonth = now.getMonth(); }
+      if (profileCalYear === null) { profileCalYear = now.getFullYear(); profileCalMonth = now.getMonth(); }
+      if (!profileCalSelected) profileCalSelected = profileDayKey(now);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const todayKey = profileDayKey(today);
+      const greeting = profileGreeting();
+      const dateLine = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       if (!state.sessionName) {
         const isSignup = profileFormMode === 'signup';
         body.innerHTML = `
-          <div class="mb-5">
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">${t.profileHeading}</h2>
-            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${t.profileOnDevice}</p>
-          </div>
-          <div class="max-w-md rounded-2xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 p-5 space-y-4">
-            <h3 class="font-bold text-base text-slate-900 dark:text-white">${isSignup ? t.profileSignUpTitle : t.profileSignInTitle}</h3>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profileNameLabel}</label>
-              <input id="profileNameInput" type="text" autocomplete="username" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
+          <div class="max-w-md mx-auto">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              </span>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">${greeting}</p>
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight">${t.profileHeading}</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">${dateLine}</p>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profilePasswordLabel}</label>
-              <input id="profilePasswordInput" type="password" autocomplete="${isSignup ? 'new-password' : 'current-password'}" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
+            <div class="profile-glass p-5 space-y-4">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">${isSignup ? t.profileSignUpTitle : t.profileSignInTitle}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">${t.profileOnDevice}</p>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profileNameLabel}</label>
+                <input id="profileNameInput" type="text" autocomplete="username" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profilePasswordLabel}</label>
+                <input id="profilePasswordInput" type="password" autocomplete="${isSignup ? 'new-password' : 'current-password'}" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
+              </div>
+              <p id="profileAuthError" class="hidden text-xs font-medium text-red-600 dark:text-red-400"></p>
+              <button id="profileAuthBtn" type="button" class="w-full py-3 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${isSignup ? t.profileSignUpBtn : t.profileSignInBtn}</button>
+              <button id="profileSwitchBtn" type="button" class="w-full text-xs font-semibold text-blue-600 dark:text-blue-400">${isSignup ? t.profileToSignIn : t.profileToSignUp}</button>
             </div>
-            <p id="profileAuthError" class="hidden text-xs font-medium text-red-600 dark:text-red-400"></p>
-            <button id="profileAuthBtn" type="button" class="w-full py-3 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${isSignup ? t.profileSignUpBtn : t.profileSignInBtn}</button>
-            <button id="profileSwitchBtn" type="button" class="w-full text-xs font-semibold text-blue-600 dark:text-blue-400">${isSignup ? t.profileToSignIn : t.profileToSignUp}</button>
           </div>`;
         document.getElementById('profileSwitchBtn').addEventListener('click', function () {
           profileFormMode = isSignup ? 'signin' : 'signup';
@@ -2791,44 +2923,182 @@
         return;
       }
       const services = loadServices();
-      const today = new Date(); today.setHours(0, 0, 0, 0);
       const rows = services.map(function (svc) {
-        const prod = state.catalog.products.find(function (x) { return x.id === svc.productId; });
+        const found = profilePlanOf(svc);
         const exp = serviceExpiry(svc);
-        let statusKey = 'noexpiry', statusCls = 'bg-slate-500/15 text-slate-600 dark:text-slate-300 border-slate-500/30';
-        if (exp) {
-          const diffDays = Math.round((exp.getTime() - today.getTime()) / 86400000);
-          if (diffDays < 0) { statusKey = 'expired'; statusCls = 'bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30'; }
-          else if (diffDays <= 7) { statusKey = 'soon'; statusCls = 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'; }
-          else { statusKey = 'active'; statusCls = 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'; }
-        }
-        const statusText = statusKey === 'expired' ? t.profileExpired : statusKey === 'soon' ? t.profileExpiringSoon : statusKey === 'active' ? t.profileActive : t.profileNoExpiry;
-        return { svc: svc, prod: prod, exp: exp, statusText: statusText, statusCls: statusCls };
+        const st = profileStatusOf(exp, today);
+        const statusText = st.key === 'expired' ? t.profileExpired : st.key === 'soon' ? t.profileExpiringSoon : st.key === 'active' ? t.profileActive : t.profileNoExpiry;
+        return { svc: svc, prod: found.prod, exp: exp, st: st, statusText: statusText };
       }).sort(function (a, b) {
         if (!a.exp && !b.exp) return 0;
         if (!a.exp) return 1;
         if (!b.exp) return -1;
         return a.exp.getTime() - b.exp.getTime();
       });
+      // Total spending for the selected month, from services bought that month.
+      const spendServices = services.filter(function (svc) {
+        const b = new Date(svc.bought + 'T00:00:00');
+        return !isNaN(b.getTime()) && b.getFullYear() === profileSpendYear && b.getMonth() === profileSpendMonth;
+      });
+      let spendTotal = 0, spendPriced = 0, spendUnpriced = 0;
+      spendServices.forEach(function (svc) {
+        const n = profilePlanPriceNum(svc);
+        if (n === null) spendUnpriced++;
+        else { spendPriced++; spendTotal += n; }
+      });
+      const activeRows = rows.filter(function (r) { return r.st.key !== 'expired'; });
+      const activeBrands = [];
+      activeRows.forEach(function (r) {
+        if (r.prod && activeBrands.indexOf(r.prod.id) === -1) activeBrands.push(r.prod.id);
+      });
+      const activeBrandTiles = activeBrands.slice(0, 5).map(function (id) {
+        const prod = state.catalog.products.find(function (x) { return x.id === id; });
+        if (!prod) return '';
+        return `<span class="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-white/10 flex items-center justify-center overflow-hidden shrink-0" title="${escapeHtml(prod.name)}">${brandLogoHtml(prod)}</span>`;
+      }).join('');
       const activeProducts = state.catalog.products.filter(function (x) { return x.active; });
       const firstProd = activeProducts[0] || null;
       const planOptions = firstProd ? firstProd.plans.map(function (pl) { return `<option value="${escapeHtml(pl.label)}">${escapeHtml(pl.label)}</option>`; }).join('') : '';
-      body.innerHTML = `
-        <div class="mb-5 flex items-start justify-between gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <span class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold shrink-0">${escapeHtml(state.sessionName.charAt(0).toUpperCase())}</span>
-            <div class="min-w-0">
-              <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight">${t.profileHeading}</h2>
-              <p class="text-sm text-slate-500 dark:text-slate-400 truncate">${t.profileSignedInAs} <strong class="text-slate-900 dark:text-white">${escapeHtml(state.sessionName)}</strong></p>
+      const shownRows = profileShowAllUpcoming ? rows : rows.slice(0, 3);
+      const upcomingHtml = rows.length === 0 ? `<p class="text-sm text-slate-500 dark:text-slate-400">${t.profileNoServices}</p>` : shownRows.map(function (r) {
+        const renewLine = r.exp ? (r.st.key === 'expired' ? t.profileExpiredOn + ' ' + fmtDate(r.exp) : t.profileRenews + ' ' + fmtDate(r.exp)) : t.profileNoExpiry;
+        return `
+          <article class="relative flex gap-3 py-3 border-b border-slate-200/60 dark:border-white/10 last:border-b-0">
+            <span class="mt-5 w-2.5 h-2.5 rounded-full ${r.st.dot} ring-4 ring-white/60 dark:ring-white/10 shrink-0"></span>
+            <span class="w-11 h-11 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-white/10 flex items-center justify-center overflow-hidden shrink-0">${r.prod ? brandLogoHtml(r.prod) : getCategoryIconSvg('')}</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white leading-snug" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.prod ? r.prod.name : r.svc.productId)}</h4>
+                <span class="shrink-0 whitespace-nowrap px-2 py-0.5 rounded-full text-[11px] font-bold border ${r.st.cls}">${profilePillText(r.st, t)}</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)} &middot; ${renewLine}</p>
+              <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">${t.profileBought}: ${fmtDate(new Date(r.svc.bought + 'T00:00:00'))} &nbsp;&middot;&nbsp; ${t.profileExpires}: ${r.exp ? fmtDate(r.exp) : t.profileNoExpiry}</p>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <button type="button" data-renew-id="${r.svc.id}" class="px-3 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${t.profileRenew}</button>
+                <button type="button" data-remove-id="${r.svc.id}" class="px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${t.profileRemove}</button>
+              </div>
             </div>
+            <div class="shrink-0 text-right">
+              <p class="text-sm font-extrabold text-slate-900 dark:text-white whitespace-nowrap">${escapeHtml(profilePlanPriceLabel(r.svc))}</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
+            </div>
+          </article>`;
+      }).join('');
+      // Renewal calendar for the selected month.
+      const calFirst = new Date(profileCalYear, profileCalMonth, 1);
+      const calDays = new Date(profileCalYear, profileCalMonth + 1, 0).getDate();
+      const calStartWeekday = calFirst.getDay();
+      const expiryByDay = {};
+      rows.forEach(function (r) {
+        if (!r.exp) return;
+        const k = profileDayKey(r.exp);
+        const rank = { expired: 3, soon: 2, active: 1, noexpiry: 0 }[r.st.key] || 0;
+        if (!expiryByDay[k] || rank > expiryByDay[k].rank) expiryByDay[k] = { st: r.st, rank: rank };
+      });
+      const weekdayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      let calCells = '';
+      for (let i = 0; i < calStartWeekday; i++) calCells += '<span></span>';
+      for (let d = 1; d <= calDays; d++) {
+        const dateObj = new Date(profileCalYear, profileCalMonth, d);
+        const k = profileDayKey(dateObj);
+        const dot = expiryByDay[k];
+        const isSel = k === profileCalSelected;
+        const isToday = k === todayKey;
+        calCells += `<button type="button" data-cal-date="${k}" class="profile-cal-day w-full min-h-[44px] rounded-2xl flex flex-col items-center justify-center gap-0.5 text-sm font-semibold transition ${isSel ? 'profile-cal-selected shadow-md shadow-blue-600/30' : 'text-slate-700 dark:text-slate-200 hover:bg-blue-600/10'} ${isToday && !isSel ? 'ring-2 ring-blue-600/50' : ''}"><span>${d}</span>${dot ? `<span class="profile-cal-dot w-1.5 h-1.5 rounded-full ${dot.st.dot}"></span>` : '<span class="w-1.5 h-1.5"></span>'}</button>`;
+      }
+      const selParts = profileCalSelected ? profileCalSelected.split('-') : null;
+      const selDate = selParts ? new Date(parseInt(selParts[0], 10), parseInt(selParts[1], 10) - 1, parseInt(selParts[2], 10)) : today;
+      const selHeading = selDate.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase() + ' ' + selDate.getDate() + ', ' + selDate.getFullYear();
+      const dayRows = rows.filter(function (r) { return r.exp && profileDayKey(r.exp) === profileCalSelected; });
+      const dayListHtml = dayRows.length === 0 ? `<p class="text-sm text-slate-500 dark:text-slate-400">${t.profileNoRenewalsDay}</p>` : dayRows.map(function (r) {
+        return `
+          <div class="flex items-center gap-3 py-2.5 border-b border-slate-200/60 dark:border-white/10 last:border-b-0">
+            <span class="w-2.5 h-2.5 rounded-full ${r.st.dot} shrink-0"></span>
+            <span class="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-white/10 flex items-center justify-center overflow-hidden shrink-0">${r.prod ? brandLogoHtml(r.prod) : getCategoryIconSvg('')}</span>
+            <div class="min-w-0 flex-1">
+              <p class="font-bold text-sm text-slate-900 dark:text-white leading-snug">${escapeHtml(r.prod ? r.prod.name : r.svc.productId)}</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
+            </div>
+            <p class="shrink-0 text-sm font-extrabold text-slate-900 dark:text-white whitespace-nowrap">${escapeHtml(profilePlanPriceLabel(r.svc))}</p>
+          </div>`;
+      }).join('');
+      body.innerHTML = `
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-12 flex items-center gap-3 min-w-0">
+          <span class="profile-avatar w-12 h-12 rounded-full text-white flex items-center justify-center text-lg font-bold shrink-0 shadow-md shadow-blue-600/25">${escapeHtml(state.sessionName.charAt(0).toUpperCase())}</span>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">${greeting}, ${escapeHtml(state.sessionName)}</p>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight">${t.profileHeading}</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">${dateLine}</p>
           </div>
-          <button id="profileSignOutBtn" type="button" class="shrink-0 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${t.profileSignOut}</button>
+          <button id="profileSignOutBtn" type="button" class="shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${t.profileSignOut}</button>
         </div>
-        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">${t.profileMyServices}</h3>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">${t.profileAddNote}</p>
-        <div class="rounded-2xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 p-4 sm:p-5 mb-5 space-y-3">
-          <h4 class="font-bold text-sm text-slate-900 dark:text-white">${t.profileAddService}</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <section id="profileSpendCard" class="profile-glass lg:col-span-7 p-5">
+          <div class="flex items-start justify-between gap-3">
+            <p class="text-[11px] font-bold tracking-widest text-slate-500 dark:text-slate-400">${t.profileTotalSpending}</p>
+            <span class="inline-flex items-center gap-1 rounded-full bg-blue-600 text-white text-xs font-bold px-2 py-1">
+              <button id="profileSpendPrev" type="button" aria-label="Previous month" class="px-1 leading-none">&#8249;</button>
+              <span id="profileSpendMonthLabel" class="whitespace-nowrap">${profileMonthLabel(profileSpendYear, profileSpendMonth)}</span>
+              <button id="profileSpendNext" type="button" aria-label="Next month" class="px-1 leading-none">&#8250;</button>
+            </span>
+          </div>
+          <p class="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white" style="font-variant-numeric:tabular-nums;"><span class="text-xl align-top">MMK</span> <span id="profileSpendTotal">${spendTotal.toLocaleString('en-US')}</span></p>
+          ${spendServices.length === 0
+            ? `<p class="mt-2 text-sm text-slate-500 dark:text-slate-400">${t.profileNoPurchases.replace('{m}', profileMonthLabel(profileSpendYear, profileSpendMonth))}</p>`
+            : `<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${t.profilePricedNote.replace('{n}', String(spendPriced))}${spendUnpriced > 0 ? ' &middot; ' + t.profileUnpricedNote.replace('{n}', String(spendUnpriced)) : ''}</p>`}
+          <div class="mt-4 flex items-center justify-between gap-3">
+            <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">${activeRows.length} ${t.profileActiveSubs}</p>
+            <div class="flex items-center gap-1.5">${activeBrandTiles || '<span class="text-xs text-slate-400">-</span>'}</div>
+          </div>
+        </section>
+        <section class="lg:col-span-7 grid grid-cols-4 gap-2 sm:gap-3">
+          <button id="profileQuickAdd" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
+            <span class="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg></span>
+            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickAdd}</span>
+          </button>
+          <button id="profileQuickShop" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
+            <span class="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></span>
+            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickShop}</span>
+          </button>
+          <button id="profileQuickRenew" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
+            <span class="w-9 h-9 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></span>
+            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickRenewNext}</span>
+          </button>
+          <button id="profileQuickSeeAll" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
+            <span class="w-9 h-9 rounded-full bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickSeeAll}</span>
+          </button>
+        </section>
+        <section id="profileUpcomingCard" class="profile-glass lg:col-span-7 p-5">
+          <div class="flex items-center justify-between gap-3 mb-1">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">${t.profileUpcoming}</h3>
+            ${rows.length > 3 ? `<button id="profileSeeAllBtn" type="button" class="shrink-0 px-3 py-1.5 rounded-full text-xs font-bold bg-blue-600 text-white">${profileShowAllUpcoming ? t.profileShowLess : t.profileSeeAll}</button>` : ''}
+          </div>
+          <div id="profileUpcomingList">${upcomingHtml}</div>
+        </section>
+        <section id="profileCalCard" class="profile-glass lg:col-span-5 lg:row-start-2 lg:row-span-3 p-5 lg:sticky lg:top-24 self-start">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">${t.profileCalendar}</h3>
+            <span class="inline-flex items-center gap-1">
+              <button id="profileCalPrev" type="button" aria-label="Previous month" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold">&#8249;</button>
+              <button id="profileCalNext" type="button" aria-label="Next month" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold">&#8250;</button>
+            </span>
+          </div>
+          <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">${profileMonthLabel(profileCalYear, profileCalMonth)}</p>
+          <div class="mt-3 grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-slate-400 dark:text-slate-500">${weekdayNames.map(function (w) { return `<span class="py-1">${w}</span>`; }).join('')}</div>
+          <div id="profileCalGrid" class="grid grid-cols-7 gap-1">${calCells}</div>
+          <div id="profileCalDay" class="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/10">
+            <div class="flex items-baseline justify-between gap-2">
+              <h4 class="text-sm font-extrabold tracking-wide text-slate-900 dark:text-white">${selHeading}</h4>
+              <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">${profileCalSelected === todayKey ? t.profileToday : ''}${profileCalSelected === todayKey && dayRows.length ? ' &middot; ' : ''}${dayRows.length ? dayRows.length + ' ' + t.profileRenewalsCount : ''}</span>
+            </div>
+            <div class="mt-1">${dayListHtml}</div>
+          </div>
+        </section>
+        <section id="profileAddCard" class="profile-glass lg:col-span-7 p-5">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">${t.profileAddService}</h3>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${t.profileAddNote}</p>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profileServiceLabel}</label>
               <select id="profileAddProduct" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white">${activeProducts.map(function (x) { return `<option value="${x.id}">${escapeHtml(x.name)}</option>`; }).join('')}</select>
@@ -2842,31 +3112,60 @@
               <input id="profileAddDate" type="date" value="${localTodayStr()}" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
             </div>
           </div>
-          <button id="profileAddBtn" type="button" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${t.profileAddBtn}</button>
-        </div>
-        ${rows.length === 0 ? `<p class="text-sm text-slate-500 dark:text-slate-400">${t.profileNoServices}</p>` : rows.map(function (r) {
-          return `
-          <article class="rounded-2xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 p-4 mb-3">
-            <div class="flex items-start justify-between gap-3">
-              <div class="min-w-0">
-                <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-snug">${escapeHtml(r.prod ? r.prod.name : r.svc.productId)}</h4>
-                <p class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
-              </div>
-              <span class="shrink-0 whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${r.statusCls}">${r.statusText}</span>
-            </div>
-            <p class="mt-2 text-xs text-slate-600 dark:text-slate-300">${t.profileBought}: ${fmtDate(new Date(r.svc.bought + 'T00:00:00'))} &nbsp;•&nbsp; ${t.profileExpires}: ${r.exp ? fmtDate(r.exp) : t.profileNoExpiry}</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <button type="button" data-renew-id="${r.svc.id}" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${t.profileRenew}</button>
-              <button type="button" data-remove-id="${r.svc.id}" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${t.profileRemove}</button>
-            </div>
-          </article>`;
-        }).join('')}
+          <button id="profileAddBtn" type="button" class="mt-4 px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${t.profileAddBtn}</button>
+        </section>
+      </div>
       `;
       document.getElementById('profileSignOutBtn').addEventListener('click', function () {
         profileFormMode = 'signin';
         state.sessionName = '';
         try { localStorage.removeItem('nes_hub_session'); } catch (e) {}
         renderAll();
+      });
+      document.getElementById('profileSpendPrev').addEventListener('click', function () {
+        profileSpendMonth--; if (profileSpendMonth < 0) { profileSpendMonth = 11; profileSpendYear--; }
+        profileScrollTo = 'spending'; renderProfileView();
+      });
+      document.getElementById('profileSpendNext').addEventListener('click', function () {
+        profileSpendMonth++; if (profileSpendMonth > 11) { profileSpendMonth = 0; profileSpendYear++; }
+        profileScrollTo = 'spending'; renderProfileView();
+      });
+      document.getElementById('profileQuickAdd').addEventListener('click', function () {
+        profileScrollTo = 'addform'; renderProfileView();
+        const sel = document.getElementById('profileAddProduct'); if (sel) sel.focus();
+      });
+      document.getElementById('profileQuickShop').addEventListener('click', function () {
+        state.activeCategory = 'All'; renderAll();
+      });
+      document.getElementById('profileQuickRenew').addEventListener('click', function () {
+        const next = rows.find(function (r) { return r.exp && r.st.key !== 'expired'; }) || rows.find(function (r) { return r.exp; });
+        if (!next || !next.prod) { showToast(t.profileNoRenewNext); return; }
+        const idx = next.prod.plans.findIndex(function (pl) { return pl.label === next.svc.planLabel; });
+        next.prod.selectedPlanIndex = idx >= 0 ? idx : 0;
+        openOrderModal(next.prod.id);
+      });
+      document.getElementById('profileQuickSeeAll').addEventListener('click', function () {
+        profileShowAllUpcoming = true; profileScrollTo = 'upcoming'; renderProfileView();
+      });
+      const seeAllBtn = document.getElementById('profileSeeAllBtn');
+      if (seeAllBtn) seeAllBtn.addEventListener('click', function () {
+        profileShowAllUpcoming = !profileShowAllUpcoming; profileScrollTo = 'upcoming'; renderProfileView();
+      });
+      document.getElementById('profileCalPrev').addEventListener('click', function () {
+        profileCalMonth--; if (profileCalMonth < 0) { profileCalMonth = 11; profileCalYear--; }
+        profileCalSelected = profileDayKey(new Date(profileCalYear, profileCalMonth, 1));
+        profileScrollTo = 'calendar'; renderProfileView();
+      });
+      document.getElementById('profileCalNext').addEventListener('click', function () {
+        profileCalMonth++; if (profileCalMonth > 11) { profileCalMonth = 0; profileCalYear++; }
+        profileCalSelected = profileDayKey(new Date(profileCalYear, profileCalMonth, 1));
+        profileScrollTo = 'calendar'; renderProfileView();
+      });
+      body.querySelectorAll('[data-cal-date]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          profileCalSelected = btn.getAttribute('data-cal-date');
+          profileScrollTo = 'calendarDay'; renderProfileView();
+        });
       });
       const prodSel = document.getElementById('profileAddProduct');
       const planSel = document.getElementById('profileAddPlan');
@@ -2899,6 +3198,12 @@
           renderProfileView();
         });
       });
+      if (profileScrollTo) {
+        const targetId = profileScrollTo === 'spending' ? 'profileSpendCard' : profileScrollTo === 'addform' ? 'profileAddCard' : profileScrollTo === 'upcoming' ? 'profileUpcomingCard' : profileScrollTo === 'calendarDay' ? 'profileCalDay' : 'profileCalCard';
+        const target = document.getElementById(targetId);
+        profileScrollTo = null;
+        if (target && target.scrollIntoView) { try { target.scrollIntoView({ block: 'nearest' }); } catch (e) {} }
+      }
     }
 
 
