@@ -313,15 +313,6 @@
           <p id="heroSubtext" class="text-sm text-blue-100/85 max-w-2xl mm-text">
             Choose your preferred subscription plan or gift card denomination below and order directly via Telegram in seconds.
           </p>
-          <div id="usdRatePill" class="mt-2 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-blue-100 border border-white/15">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-            <span id="usdRateValue">1 USD = 2,100 MMK</span>
-            <span class="opacity-60">•</span>
-            <span id="usdRateSource">official rate</span>
-            <span class="opacity-60">•</span>
-            <span id="usdRateDate">5 Nov 2026</span>
-            <span id="usdRateNote" class="hidden text-amber-200"></span>
-          </div>
         </div>
 
         <!-- Quick Action Pills: Promotion & How to use -->
@@ -977,9 +968,6 @@
         tagline: 'Digital subscriptions, gift cards and game credit.',
         instantDelivery: 'Instant Digital Delivery',
         heroSubtext: 'Choose your preferred subscription plan or gift card denomination below and order directly via Telegram in seconds.',
-        rateOfficial: 'official rate',
-        rateMarket: 'market rate',
-        rateStale: 'rate could not be refreshed',
         promotion: 'Promotion',
         howToUse: 'How to use',
         searchPlaceholder: 'Search services and items',
@@ -1129,9 +1117,6 @@
         tagline: 'ဒစ်ဂျစ်တယ် စာရင်းသွင်းမှုများ၊ လက်ဆောင်ကတ်များနှင့် ဂိမ်းခရက်ဒစ်များ။',
         instantDelivery: 'ချက်ချင်း ပို့ဆောင်ပေးသည်',
         heroSubtext: 'သင်လိုချင်သော ပက်ကေ့ချ် သို့မဟုတ် လက်ဆောင်ကတ်ပမာဏကို ရွေးချယ်ပြီး Telegram မှတစ်ဆင့် အလွယ်တကူ ဝယ်ယူနိုင်ပါသည်။',
-        rateOfficial: 'တရားဝင် နှုန်း',
-        rateMarket: 'ဈေးကွက် နှုန်း',
-        rateStale: 'နှုန်းကို ပြန်လည်ရယူ၍ မရပါ',
         promotion: 'ပရိုမိုးရှင်း',
         howToUse: 'အသုံးပြုနည်း',
         searchPlaceholder: 'ဝန်ဆောင်မှုများနှင့် ပစ္စည်းများကို ရှာဖွေပါ',
@@ -2269,69 +2254,6 @@
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), ms);
       return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
-    }
-
-    // --- USD to MMK rate display (informational only, never a price) ---
-    // Seed: last-known official CBM reference rate, 2,100 MMK, published
-    // 5 Nov 2026. The pill always shows a dated value. On load we try the
-    // Central Bank of Myanmar public API first; it sends no CORS headers,
-    // so a browser fetch from GitHub Pages is blocked and we fall back to
-    // the free no-key market rates API, labeled honestly as a market rate.
-    // The last good value is cached in localStorage with its date, so the
-    // shop still shows something offline. If nothing refreshes, the seeded
-    // or cached value stays with a plain "rate could not be refreshed" note.
-    const USD_RATE_KEY = 'nes_hub_usd_rate';
-    const USD_RATE_SEED = { value: 2100, date: '5 Nov 2026', source: 'official' };
-    let lastUsdRate = { value: USD_RATE_SEED.value, date: USD_RATE_SEED.date, source: 'official', stale: false };
-    function renderUsdRate(rate) {
-      lastUsdRate = rate;
-      const t = I18N[state.lang];
-      const valEl = document.getElementById('usdRateValue');
-      const srcEl = document.getElementById('usdRateSource');
-      const dateEl = document.getElementById('usdRateDate');
-      const noteEl = document.getElementById('usdRateNote');
-      if (!valEl || !srcEl || !dateEl || !noteEl) return;
-      valEl.textContent = '1 USD = ' + Number(rate.value).toLocaleString('en-US') + ' MMK';
-      srcEl.textContent = rate.source === 'official' ? t.rateOfficial : t.rateMarket;
-      dateEl.textContent = rate.date;
-      if (rate.stale) { noteEl.textContent = t.rateStale; noteEl.classList.remove('hidden'); }
-      else { noteEl.textContent = ''; noteEl.classList.add('hidden'); }
-    }
-    function usdRateDateStr(d) {
-      if (!d || isNaN(d.getTime())) return USD_RATE_SEED.date;
-      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    }
-    async function fetchUsdRate() {
-      let cached = null;
-      try { cached = JSON.parse(localStorage.getItem(USD_RATE_KEY) || 'null'); } catch (e) {}
-      if (cached && cached.value) renderUsdRate({ value: cached.value, date: cached.date || USD_RATE_SEED.date, source: cached.source || 'official', stale: false });
-      else renderUsdRate({ value: USD_RATE_SEED.value, date: USD_RATE_SEED.date, source: 'official', stale: false });
-      try {
-        const res = await fetchWithTimeout('https://forex.cbm.gov.mm/api/latest', 6000);
-        const data = await res.json();
-        const usd = data && data.rates && data.rates.USD;
-        if (usd) {
-          const ts = data.timestamp ? new Date(data.timestamp * 1000) : null;
-          const rate = { value: Math.round(parseFloat(usd)), date: usdRateDateStr(ts), source: 'official', stale: false };
-          try { localStorage.setItem(USD_RATE_KEY, JSON.stringify(rate)); } catch (e) {}
-          renderUsdRate(rate);
-          return;
-        }
-      } catch (e) { /* CBM unreachable or CORS blocked, fall through to the market fallback */ }
-      try {
-        const res = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD', 6000);
-        const data = await res.json();
-        const mmk = data && data.rates && data.rates.MMK;
-        if (mmk) {
-          const upd = data.time_last_update_utc ? new Date(data.time_last_update_utc) : null;
-          const rate = { value: Math.round(mmk), date: usdRateDateStr(upd), source: 'market', stale: false };
-          try { localStorage.setItem(USD_RATE_KEY, JSON.stringify(rate)); } catch (e) {}
-          renderUsdRate(rate);
-          return;
-        }
-      } catch (e) { /* offline, keep the seeded or cached value */ }
-      const shown = cached && cached.value ? cached : USD_RATE_SEED;
-      renderUsdRate({ value: shown.value, date: shown.date || USD_RATE_SEED.date, source: shown.source || 'official', stale: true });
     }
 
     function parseRssItems(xmlText, limit) {
@@ -3614,7 +3536,6 @@
       await loadPublishedCatalog();
       loadSavedState();
       renderAll();
-      fetchUsdRate();
       updateHalloweenBanner();
       setInterval(updateHalloweenBanner, 1000);
       setInterval(updateClockAndGreeting, 1000);
