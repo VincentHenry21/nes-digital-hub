@@ -100,7 +100,7 @@
       #productsGrid .buy-tg-btn { width: 100%; justify-content: center; }
       #productsGrid .prod-price { overflow-wrap: break-word; }
       #productsGrid .prod-price > div { flex-wrap: wrap; }
-      #productsGrid .prod-price .text-lg { font-size: 1rem; }
+      #productsGrid .prod-price .text-lg { font-size: 1.25rem; }
     }
 
     /* NES Design System v3.0.0. Presentation only. No business logic, prices,
@@ -115,6 +115,7 @@
       --nes-cyan: #35D9FF;
       --nes-violet: #8B7CFF;
       --nes-ease: cubic-bezier(.22, .61, .36, 1);
+      --nes-ease-io: cubic-bezier(.4, 0, .2, 1);
       --nes-shadow: 0 12px 32px rgba(11, 18, 32, .10), 0 2px 8px rgba(11, 18, 32, .06);
       --nes-shadow-dark: 0 16px 40px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .30);
     }
@@ -123,6 +124,19 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
+
+    /* Motion: one ease, one duration band, compositor only. Bare Tailwind
+       .transition animates every property for 150ms with the default ease,
+       so hover, press, modal and tab motion felt uneven. Standardize it to
+       the v3.0.0 200ms ease-out and a transform/opacity/color/shadow
+       property list, so no transition can trigger layout work. Toggles
+       (.transition-colors) use the same 200ms with ease-in-out. will-change
+       is added only to the continuously spinning vinyl and to a product
+       card while it is hovered, and is removed when the hover ends. */
+    .transition { transition-duration: .2s !important; transition-timing-function: var(--nes-ease) !important; transition-property: transform, opacity, background-color, border-color, color, box-shadow !important; }
+    .transition-colors { transition-duration: .2s !important; transition-timing-function: var(--nes-ease-io) !important; }
+    #productsGrid .prod-card:hover { will-change: transform; }
+    .music-vinyl { will-change: transform; }
     .buy-tg-btn, .membership-apply-btn, #unlockAdminBtn, #suggestSendBtn, #rateSendBtn, #resetSearchBtn, #exitPromoBtn, .cat-tab-btn { min-height: 44px; }
     .buy-tg-btn, .membership-apply-btn, #unlockAdminBtn, #suggestSendBtn, #rateSendBtn, #resetSearchBtn, #exitPromoBtn { display: inline-flex; align-items: center; justify-content: center; }
     img { max-width: 100%; }
@@ -194,15 +208,15 @@
     .music-vinyl-icon { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
     .music-meta { flex: 1; min-width: 0; }
     .music-bar { height: 3px; border-radius: 2px; background: rgba(148, 163, 184, 0.4); margin-top: 7px; overflow: hidden; cursor: pointer; }
-    .music-fill { height: 100%; width: 0%; background: #2563eb; border-radius: 2px; transition: width 0.5s linear; }
+    .music-fill { height: 100%; width: 100%; background: #2563eb; border-radius: 2px; transform: scaleX(0); transform-origin: left center; transition: transform 0.5s linear; }
     html.dark .music-fill { background: #60a5fa; }
     .music-eq { display: none; align-items: flex-end; gap: 3px; height: 18px; flex-shrink: 0; }
     .music-pill.playing .music-eq { display: flex; }
-    .music-eq i { width: 3px; border-radius: 2px; background: currentColor; height: 30%; animation: music-eqb 1.1s ease-in-out infinite; }
+    .music-eq i { width: 3px; height: 100%; border-radius: 2px; background: currentColor; transform: scaleY(.3); transform-origin: bottom center; animation: music-eqb 1.1s ease-in-out infinite; }
     .music-eq i:nth-child(2) { animation-delay: 0.18s; }
     .music-eq i:nth-child(3) { animation-delay: 0.36s; }
     .music-eq i:nth-child(4) { animation-delay: 0.54s; }
-    @keyframes music-eqb { 0%, 100% { height: 28%; } 50% { height: 100%; } }
+    @keyframes music-eqb { 0%, 100% { transform: scaleY(.28); } 50% { transform: scaleY(1); } }
     .music-yt-host { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
     .music-spinner { width: 17px; height: 17px; border-radius: 50%; display: block; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; animation: music-spin 0.7s linear infinite; }
 
@@ -236,9 +250,9 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">NES Digital Hub</span>
-            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-600 dark:bg-blue-400/15 dark:text-blue-300 border border-blue-500/20">Verified Store</span>
+            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:bg-blue-400/15 dark:text-blue-300 border border-blue-500/20">Verified Store</span>
           </div>
-          <p id="headerTagline" class="text-xs text-slate-500 dark:text-slate-400">Digital subscriptions, gift cards and game credit.</p>
+          <p id="headerTagline" class="text-sm text-slate-500 dark:text-slate-400">Digital subscriptions, gift cards and game credit.</p>
         </div>
       </a>
 
@@ -272,7 +286,7 @@
           <span id="headerTelegramText">@henzofflimits</span>
         </a>
         <button id="headerProfileBtn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/90 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 transition">
-          <span id="headerProfileInitial" class="w-5 h-5 rounded-full bg-blue-600 text-white items-center justify-center text-[11px] font-bold" style="display:none">?</span>
+          <span id="headerProfileInitial" class="w-5 h-5 rounded-full bg-blue-600 text-white items-center justify-center text-xs font-bold" style="display:none">?</span>
           <span id="headerProfileLabel">Profile</span>
         </button>
       </div>
@@ -296,22 +310,31 @@
           <h1 id="greetingHeading" class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight mm-text">
             Good Afternoon, welcome to NES Digital Hub
           </h1>
-          <p id="heroSubtext" class="text-xs sm:text-sm text-blue-100/85 max-w-2xl mm-text">
+          <p id="heroSubtext" class="text-sm text-blue-100/85 max-w-2xl mm-text">
             Choose your preferred subscription plan or gift card denomination below and order directly via Telegram in seconds.
           </p>
+          <div id="usdRatePill" class="mt-2 inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-blue-100 border border-white/15">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <span id="usdRateValue">1 USD = 2,100 MMK</span>
+            <span class="opacity-60">•</span>
+            <span id="usdRateSource">official rate</span>
+            <span class="opacity-60">•</span>
+            <span id="usdRateDate">5 Nov 2026</span>
+            <span id="usdRateNote" class="hidden text-amber-200"></span>
+          </div>
         </div>
 
         <!-- Quick Action Pills: Promotion & How to use -->
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-          <button id="promoToggleBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-lg shadow-amber-500/20 transition">
+          <button id="promoToggleBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-lg shadow-amber-500/20 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
             <span id="promoBtnText">Promotion</span>
-            <span id="promoCountBadge" class="px-1.5 py-0.5 text-[11px] font-bold rounded-full bg-slate-950/15 text-slate-950">4</span>
+            <span id="promoCountBadge" class="px-1.5 py-0.5 text-xs font-bold rounded-full bg-slate-950/15 text-slate-950">4</span>
           </button>
 
-          <button id="howToUseBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur-sm transition">
+          <button id="howToUseBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur-sm transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -325,22 +348,22 @@
         <div class="p-3.5 rounded-xl bg-white/10 border border-white/10">
           <div class="text-xs font-bold text-amber-300 mb-1" id="step1Tag">STEP 01</div>
           <div class="font-semibold text-sm mb-0.5" id="step1Title">Pick Service & Plan</div>
-          <p class="text-xs text-blue-100/80" id="step1Desc">Select your desired duration (1M, 3M, 12M) or gift card amount on any card.</p>
+          <p class="text-sm text-blue-100/80" id="step1Desc">Select your desired duration (1M, 3M, 12M) or gift card amount on any card.</p>
         </div>
         <div class="p-3.5 rounded-xl bg-white/10 border border-white/10">
           <div class="text-xs font-bold text-amber-300 mb-1" id="step2Tag">STEP 02</div>
           <div class="font-semibold text-sm mb-0.5" id="step2Title">Tap Buy on Telegram</div>
-          <p class="text-xs text-blue-100/80" id="step2Desc">Your order details are pre-filled automatically for @henzofflimits.</p>
+          <p class="text-sm text-blue-100/80" id="step2Desc">Your order details are pre-filled automatically for @henzofflimits.</p>
         </div>
         <div class="p-3.5 rounded-xl bg-white/10 border border-white/10">
           <div class="text-xs font-bold text-amber-300 mb-1" id="step3Tag">STEP 03</div>
           <div class="font-semibold text-sm mb-0.5" id="step3Title">Easy Local Payment</div>
-          <p class="text-xs text-blue-100/80" id="step3Desc">Pay conveniently via KBZPay, WavePay, AYA Pay, or local bank transfer.</p>
+          <p class="text-sm text-blue-100/80" id="step3Desc">Pay conveniently via KBZPay, WavePay, AYA Pay, or local bank transfer.</p>
         </div>
         <div class="p-3.5 rounded-xl bg-white/10 border border-white/10">
           <div class="text-xs font-bold text-amber-300 mb-1" id="step4Tag">STEP 04</div>
           <div class="font-semibold text-sm mb-0.5" id="step4Title">Fast Activation</div>
-          <p class="text-xs text-blue-100/80" id="step4Desc">Receive your account login, invite link, or redeem code within minutes.</p>
+          <p class="text-sm text-blue-100/80" id="step4Desc">Receive your account login, invite link, or redeem code within minutes.</p>
         </div>
       </div>
     </section>
@@ -354,8 +377,8 @@
         </div>
         <div class="flex-1 min-w-0">
           <h2 id="halloweenTitle" class="text-lg sm:text-xl font-extrabold tracking-tight">Halloween Discount</h2>
-          <p id="halloweenSub" class="text-xs sm:text-sm text-orange-100/90 mt-0.5">3-5% off all products, 24 hours only. Discount applied at order, confirm on Telegram.</p>
-          <p class="text-xs sm:text-sm font-bold mt-2"><span id="halloweenEndsLabel">Ends in</span> <span id="halloweenCountdown" class="tabular-nums text-amber-300">--:--:--</span></p>
+          <p id="halloweenSub" class="text-sm text-orange-100/90 mt-0.5">3-5% off all products, 24 hours only. Discount applied at order, confirm on Telegram.</p>
+          <p class="text-sm font-bold mt-2"><span id="halloweenEndsLabel">Ends in</span> <span id="halloweenCountdown" class="tabular-nums text-amber-300">--:--:--</span></p>
         </div>
       </div>
     </section>
@@ -383,7 +406,7 @@
 
         <!-- Quick Sort / Price Filter Dropdown -->
         <div class="flex items-center gap-2">
-          <select id="priceFilterSelect" class="px-3.5 py-3 rounded-xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+          <select id="priceFilterSelect" class="px-3.5 py-3 rounded-xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
             <option value="all" id="filterAllOpt">All Items</option>
             <option value="priced" id="filterPricedOpt">Fixed Price Listed</option>
             <option value="promo" id="filterPromoOpt">On Promotion Only</option>
@@ -399,7 +422,7 @@
 
     <!-- Active Promotion Filter Banner (when Promotion filter is active) -->
     <div id="promoBannerBar" class="hidden mb-5 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+      <div class="flex items-center gap-2.5 text-sm font-medium">
         <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-bold text-xs">★</span>
         <span id="promoActiveBannerText">Showing special promotion items. Select a plan to order at promo rates!</span>
       </div>
@@ -442,7 +465,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4M7 4h10v6a5 5 0 01-10 0V4zM7 6H4a1 1 0 00-1 1v1a3 3 0 003 3M17 6h3a1 1 0 011 1v1a3 3 0 01-3 3"/></svg>
             </span>
             <h3 id="newsGrammyHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
-            <span id="newsGrammySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+            <span id="newsGrammySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs text-slate-500 dark:text-slate-400"></span>
           </div>
           <div id="grammyBody" class="space-y-2"></div>
         </article>
@@ -452,7 +475,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </span>
             <h3 id="newsSpotifyHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
-            <span id="newsSpotifySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+            <span id="newsSpotifySourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs text-slate-500 dark:text-slate-400"></span>
           </div>
           <div id="spotifyBody" class="space-y-3"></div>
         </article>
@@ -462,7 +485,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </span>
             <h3 id="newsAppleHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
-            <span id="newsAppleSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+            <span id="newsAppleSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs text-slate-500 dark:text-slate-400"></span>
           </div>
           <div id="appleBody" class="space-y-2"></div>
         </article>
@@ -472,7 +495,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6"/></svg>
             </span>
             <h3 id="newsMusicHeading" class="flex-1 min-w-0 text-base font-bold text-slate-900 dark:text-white"></h3>
-            <span id="newsMusicSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-[11px] text-slate-500 dark:text-slate-400"></span>
+            <span id="newsMusicSourceLabel" class="shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs text-slate-500 dark:text-slate-400"></span>
           </div>
           <div id="musicBody" class="space-y-2"></div>
         </article>
@@ -501,7 +524,7 @@
               </span>
               <div class="min-w-0">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Normal Member</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Starter bundle</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Starter bundle</p>
               </div>
             </div>
             <div>
@@ -509,15 +532,15 @@
               <p class="mt-1 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400">ONLY</p>
             </div>
             <div>
-              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <p class="membership-included-label mb-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
               <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Family 3 Months</span></li>
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>CapCut Pro 1 Month</span></li>
               </ul>
             </div>
             <div class="rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5">
-              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
-              <p id="normalEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+              <p class="membership-eligibility-label mb-1 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="normalEligibility" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300"></p>
             </div>
             <div class="member-foot">
               <button type="button" data-member-apply="normal" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white shadow-md shadow-blue-600/20 transition">Apply via Telegram</button>
@@ -533,7 +556,7 @@
               </span>
               <div class="min-w-0">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Gold Member</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Music plus gift card bundle</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Music plus gift card bundle</p>
               </div>
             </div>
             <div>
@@ -541,7 +564,7 @@
               <p class="mt-1 text-xs font-bold tracking-widest text-amber-600 dark:text-amber-400">ONLY</p>
             </div>
             <div>
-              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <p class="membership-included-label mb-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
               <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Individual 1 Month</span></li>
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>CapCut Pro 1 Month</span></li>
@@ -549,8 +572,8 @@
               </ul>
             </div>
             <div class="rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 p-3.5">
-              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
-              <p id="goldEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+              <p class="membership-eligibility-label mb-1 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="goldEligibility" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300"></p>
             </div>
             <div class="member-foot">
               <button type="button" data-member-apply="gold" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 shadow-md shadow-amber-500/20 transition">Apply via Telegram</button>
@@ -566,7 +589,7 @@
               </span>
               <div class="min-w-0">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Emerald Member</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Top bundle, with a free extra</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Top bundle, with a free extra</p>
               </div>
             </div>
             <div>
@@ -574,7 +597,7 @@
               <p class="mt-1 text-xs font-bold tracking-widest text-emerald-600 dark:text-emerald-400">ONLY</p>
             </div>
             <div>
-              <p class="membership-included-label mb-2.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
+              <p class="membership-included-label mb-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Included</p>
               <ul class="space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Spotify Individual 3 Months</span></li>
                 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Apple Gift Card 10$ + 1$ (Free)</span></li>
@@ -582,8 +605,8 @@
               </ul>
             </div>
             <div class="rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 p-3.5">
-              <p class="membership-eligibility-label mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
-              <p id="emeraldEligibility" class="text-xs leading-relaxed text-slate-600 dark:text-slate-300"></p>
+              <p class="membership-eligibility-label mb-1 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Eligibility</p>
+              <p id="emeraldEligibility" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300"></p>
             </div>
             <div class="member-foot">
               <button type="button" data-member-apply="emerald" class="membership-apply-btn w-full py-3 rounded-xl text-sm font-bold bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white shadow-md shadow-emerald-600/20 transition">Apply via Telegram</button>
@@ -634,7 +657,7 @@
               </div>
               <div>
                 <h3 class="text-sm font-bold text-slate-900 dark:text-white" id="adminStatusHeading">Admin editing, passcode protected</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400" id="adminStatusSub">Edits save as a draft on this device. Publish to make them visible to all users.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400" id="adminStatusSub">Edits save as a draft on this device. Publish to make them visible to all users.</p>
               </div>
             </div>
             <button id="lockAdminBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition shrink-0">
@@ -649,7 +672,7 @@
                 <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
                 <span id="draftStatusTitle" class="text-sm font-bold text-amber-900 dark:text-amber-200">You have unpublished changes.</span>
               </div>
-              <p id="draftStatusSub" class="text-xs text-amber-800/80 dark:text-amber-300/80">Visitors still see the last published catalog until you publish or export.</p>
+              <p id="draftStatusSub" class="text-sm text-amber-800/80 dark:text-amber-300/80">Visitors still see the last published catalog until you publish or export.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <button id="publishCatalogBtn" type="button" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition">
@@ -673,9 +696,9 @@
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Contact & Telegram Routing</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">All "Buy on Telegram" buttons route orders to this handle.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">All "Buy on Telegram" buttons route orders to this handle.</p>
               </div>
-              <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400">Live Routing</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400">Live Routing</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -704,9 +727,9 @@
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Publish setup (GitHub Sync)</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Writes <code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">catalog.json</code> to <code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">VincentHenry21/nes-digital-hub</code>. Stored locally in this browser only.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Writes <code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">catalog.json</code> to <code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">VincentHenry21/nes-digital-hub</code>. Stored locally in this browser only.</p>
               </div>
-              <span id="tokenStatusBadge" class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">No Token Saved</span>
+              <span id="tokenStatusBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">No Token Saved</span>
             </div>
 
             <div>
@@ -733,7 +756,7 @@
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <h3 class="text-lg font-bold text-slate-900 dark:text-white">Products & Pricing Catalog</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">Toggle visibility, mark promotions, or leave price empty to show "Ask admin for the price".</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Toggle visibility, mark promotions, or leave price empty to show "Ask admin for the price".</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <input id="adminSearchInput" type="text" placeholder="Filter products in admin..." class="px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -797,13 +820,13 @@
 
   <!-- Order Confirmation & Telegram Checkout Modal -->
   <div id="orderModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-    <div class="w-full max-w-md rounded-2xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div class="w-full max-w-md rounded-2xl bg-white/70 dark:bg-[#111932]/60 backdrop-blur-md border border-white/50 dark:border-white/15 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
       <div class="p-5 bg-gradient-to-r from-[#1800AD] via-[#133DD6] to-[#0D7BFF] text-white flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div id="modalProductIcon" class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center font-bold text-base">N</div>
           <div>
             <h3 id="modalProductTitle" class="font-bold text-base">Netflix</h3>
-            <p id="modalProductCategory" class="text-xs text-blue-100">Streaming</p>
+            <p id="modalProductCategory" class="text-sm text-blue-100">Streaming</p>
           </div>
         </div>
         <button id="closeOrderModalBtn" type="button" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition">
@@ -814,7 +837,7 @@
       </div>
 
       <div class="p-5 space-y-4">
-        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 space-y-2 text-sm">
           <div class="flex justify-between">
             <span class="text-slate-500 dark:text-slate-400" id="modalLabelPlan">Selected Plan:</span>
             <span id="modalSelectedPlan" class="font-bold text-slate-900 dark:text-white">1 Month</span>
@@ -830,8 +853,8 @@
         </div>
 
         <div>
-          <label for="orderMessagePreview" class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" id="modalLabelMsg">Pre-filled Order Message (Ready to send):</label>
-          <textarea id="orderMessagePreview" rows="3" readonly class="w-full p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 font-mono resize-none focus:outline-none"></textarea>
+          <label for="orderMessagePreview" class="block text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1" id="modalLabelMsg">Pre-filled Order Message (Ready to send):</label>
+          <textarea id="orderMessagePreview" rows="3" readonly class="w-full p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 font-mono resize-none focus:outline-none"></textarea>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-2.5 pt-1">
@@ -916,7 +939,7 @@
       <div class="p-5 space-y-4">
         <h2 id="consentHeading" class="font-bold text-base text-slate-900 dark:text-white">Before you use NES Digital Hub</h2>
         <p id="consentText" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">To use this website, please agree to our <a href="terms.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Terms and Conditions</a> and our <a href="cookies.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 dark:text-blue-400 underline">Cookies Policy</a>. The links open in a new tab, so you can read them without losing this screen.</p>
-        <p id="consentNote" class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">This website does not set cookies itself. It only stores your language choice, your own service rating, admin drafts, and this agreement on your device.</p>
+        <p id="consentNote" class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">This website does not set cookies itself. It only stores your language choice, your own service rating, admin drafts, and this agreement on your device.</p>
         <button id="consentAgreeBtn" type="button" class="w-full py-3 px-4 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition">I agree to the Terms and Cookies Policy</button>
       </div>
     </div>
@@ -937,7 +960,7 @@
       <div id="musicBar" class="music-bar"><div id="musicFill" class="music-fill"></div></div>
     </div>
     <span id="musicEq" class="music-eq text-slate-900 dark:text-white" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-    <span id="musicTime" class="text-[11px] text-slate-500 dark:text-slate-400 whitespace-nowrap tabular-nums">0:00</span>
+    <span id="musicTime" class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap tabular-nums">0:00</span>
     <button id="musicCloseBtn" type="button" aria-label="Close player" class="shrink-0 w-8 h-8 grid place-items-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
@@ -954,6 +977,9 @@
         tagline: 'Digital subscriptions, gift cards and game credit.',
         instantDelivery: 'Instant Digital Delivery',
         heroSubtext: 'Choose your preferred subscription plan or gift card denomination below and order directly via Telegram in seconds.',
+        rateOfficial: 'official rate',
+        rateMarket: 'market rate',
+        rateStale: 'rate could not be refreshed',
         promotion: 'Promotion',
         howToUse: 'How to use',
         searchPlaceholder: 'Search services and items',
@@ -1103,6 +1129,9 @@
         tagline: 'ဒစ်ဂျစ်တယ် စာရင်းသွင်းမှုများ၊ လက်ဆောင်ကတ်များနှင့် ဂိမ်းခရက်ဒစ်များ။',
         instantDelivery: 'ချက်ချင်း ပို့ဆောင်ပေးသည်',
         heroSubtext: 'သင်လိုချင်သော ပက်ကေ့ချ် သို့မဟုတ် လက်ဆောင်ကတ်ပမာဏကို ရွေးချယ်ပြီး Telegram မှတစ်ဆင့် အလွယ်တကူ ဝယ်ယူနိုင်ပါသည်။',
+        rateOfficial: 'တရားဝင် နှုန်း',
+        rateMarket: 'ဈေးကွက် နှုန်း',
+        rateStale: 'နှုန်းကို ပြန်လည်ရယူ၍ မရပါ',
         promotion: 'ပရိုမိုးရှင်း',
         howToUse: 'အသုံးပြုနည်း',
         searchPlaceholder: 'ဝန်ဆောင်မှုများနှင့် ပစ္စည်းများကို ရှာဖွေပါ',
@@ -1556,6 +1585,90 @@
           "price": ""
         }
       ]
+    },
+    {
+      "id": "office-365",
+      "name": "Microsoft Office 365",
+      "category": "Apps",
+      "accent": "from-blue-600 to-sky-700",
+      "badgeBg": "bg-blue-500/15 text-blue-500 border-blue-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": false,
+      "descEn": "Microsoft Office 365 with Word, Excel, PowerPoint, OneNote, Outlook, OneDrive and Defender. Works on PC, Mac, iPad, Tablet and Phone. Shared Name (No OneDrive, Lifetime): a new account with a ready-made name. Personal Name (1TB OneDrive, Lifetime): a new account with your own name. Current Email (1TB OneDrive, One Year): your current email is invited with a licence and added.",
+      "descMm": "Word, Excel, PowerPoint, OneNote, Outlook, OneDrive နှင့် Defender တို့ ပါဝင်သော Microsoft Office 365။ PC, Mac, iPad, Tablet, Phone အကုန် သုံးလို့ရပါတယ်။ ရိုးရိုးနာမည်: လုပ်ထားပြီးသား နာမည်နဲ့ အကောင့်သစ် ရပါမယ်။ ကိုယ်ပိုင်နာမည်: မိမိရဲ့ ကိုယ်ပိုင် နာမည်နဲ့ အကောင့်သစ် ရပါမယ်။ လက်ရှိမေးလ်: လက်ရှိ သုံးနေတဲ့ မေးလ်ကို လိုင်စင် Invite ပြီး ထည့်ပေးပါတယ်။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "Shared Name · No OneDrive · Lifetime",
+          "price": "25,000 MMK"
+        },
+        {
+          "label": "Personal Name · 1TB OneDrive · Lifetime",
+          "price": "40,000 MMK"
+        },
+        {
+          "label": "Current Email · 1TB OneDrive · One Year",
+          "price": "90,000 MMK"
+        }
+      ]
+    },
+    {
+      "id": "canva-pro",
+      "name": "Canva Pro",
+      "category": "Apps",
+      "accent": "from-violet-500 to-purple-700",
+      "badgeBg": "bg-violet-500/15 text-violet-500 border-violet-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": false,
+      "descEn": "Canva Pro subscription with premium templates, brand kit and Pro design tools.",
+      "descMm": "Canva Pro စာရင်းသွင်းခြင်း။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "Lifetime",
+          "price": "35,000 MMK"
+        }
+      ]
+    },
+    {
+      "id": "gemini-ai-pro",
+      "name": "Gemini AI Pro",
+      "category": "Apps",
+      "accent": "from-sky-500 to-indigo-600",
+      "badgeBg": "bg-sky-500/15 text-sky-500 border-sky-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": false,
+      "descEn": "Gemini AI Pro subscription with advanced AI features.",
+      "descMm": "Gemini AI Pro စာရင်းသွင်းခြင်း။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "18 Months",
+          "price": "45,000 MMK"
+        }
+      ]
+    },
+    {
+      "id": "claude-ai",
+      "name": "Claude AI",
+      "category": "Apps",
+      "accent": "from-orange-500 to-amber-600",
+      "badgeBg": "bg-orange-500/15 text-orange-500 border-orange-500/30",
+      "iconType": "app",
+      "active": true,
+      "promo": false,
+      "descEn": "Claude AI subscription with advanced AI assistant features.",
+      "descMm": "Claude AI စာရင်းသွင်းခြင်း။",
+      "selectedPlanIndex": 0,
+      "plans": [
+        {
+          "label": "1 Account",
+          "price": "20,000 MMK"
+        }
+      ]
     }
   ]
 };
@@ -1781,6 +1894,7 @@
       }
 
       updateClockAndGreeting();
+      if (lastUsdRate) renderUsdRate(lastUsdRate);
     }
 
     // --- Render Category Tabs ---
@@ -1805,10 +1919,10 @@
           <button
             type="button"
             data-cat="${cat}"
-            class="cat-tab-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold border transition ${baseCls}"
+            class="cat-tab-btn shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border transition ${baseCls}"
           >
             <span>${tCats[cat] || cat}</span>
-            ${count !== null ? `<span class="px-1.5 py-0.2 rounded-full text-[11px] ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}">${count}</span>` : ''}
+            ${count !== null ? `<span class="px-1.5 py-0.2 rounded-full text-xs ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}">${count}</span>` : ''}
           </button>
         `;
       }).join('');
@@ -1839,18 +1953,26 @@
       'telegram-premium': 'telegram',
       'apple-gift-cards': 'apple',
       'youtube-premium': 'youtube',
-      'steam-wallet': 'steam'
-      // capcut-pro, chatgpt-plus, mlbb-diamonds: no Simple Icons entry (CDN 404),
-      // so they use BRAND_URLS below instead, with the same category SVG fallback
+      'steam-wallet': 'steam',
+      'gemini-ai-pro': 'googlegemini',
+      'claude-ai': 'claude'
+      // capcut-pro, chatgpt-plus, mlbb-diamonds, office-365, canva-pro:
+      // no Simple Icons entry (CDN 404), so they use BRAND_URLS below
+      // instead, with the same category SVG fallback. Canva has no public
+      // icon on Simple Icons, LobeHub or Iconify, so canva-pro keeps the
+      // generic category SVG fallback.
     };
     // Full logo URLs for brands Simple Icons does not carry.
     // CapCut and ChatGPT (OpenAI mark) via LobeHub icons CDN, documented at
-    // unpkg.com/@lobehub/icons-static-svg. Mobile Legends uses the local logo
-    // file he supplied (mlbb-logo.jpg, tightly cropped from his upload),
-    // replacing the earlier Iconify Arcticons URL.
+    // unpkg.com/@lobehub/icons-static-svg. Office 365 uses the Microsoft
+    // four-pane mark from the same LobeHub set (icons/microsoft.svg).
+    // Mobile Legends uses the local logo file he supplied (mlbb-logo.jpg,
+    // tightly cropped from his upload), replacing the earlier Iconify
+    // Arcticons URL.
     const BRAND_URLS = {
       'capcut-pro': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/capcut.svg',
-      'chatgpt-plus': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg'
+      'chatgpt-plus': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg',
+      'office-365': 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/microsoft.svg'
     };
     function brandLogoHtml(prod) {
       // Mobile Legends wordmark is wide, so it fills the tile width instead of
@@ -1984,7 +2106,7 @@
         const priceDisplayHtml = formattedPrice
           ? `<div class="flex items-baseline gap-2">
                <span class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">${formattedPrice}</span>
-               <span class="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">• ${activePlan.label}</span>
+               <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">• ${activePlan.label}</span>
              </div>`
           : `<div class="text-sm text-slate-700 dark:text-slate-200 mm-text">
                <strong class="font-bold text-slate-900 dark:text-white">${t.askAdminBold}</strong>${t.askAdminRest}
@@ -2007,11 +2129,11 @@
                     <span class="text-xs font-medium text-slate-500 dark:text-slate-400">${catTranslated}</span>
                   </div>
                 </div>
-                ${prod.promo ? `<span class="shrink-0 whitespace-nowrap px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">Promo</span>` : ''}
+                ${prod.promo ? `<span class="shrink-0 whitespace-nowrap px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">Promo</span>` : ''}
               </div>
 
               <!-- Description -->
-              <p class="prod-desc text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-4 mm-text">
+              <p class="prod-desc text-sm text-slate-600 dark:text-slate-300 mb-4 mm-text">
                 ${description}
               </p>
 
@@ -2026,14 +2148,14 @@
               <div class="prod-price">
                 ${priceDisplayHtml}
               </div>
-              <select data-plan-select="${prod.id}" aria-label="Select plan" class="plan-select px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <select data-plan-select="${prod.id}" aria-label="Select plan" class="plan-select px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 ${prod.plans.map((pl, idx) => `<option value="${idx}" ${idx === selIdx ? 'selected' : ''}>${pl.label}</option>`).join('')}
               </select>
 
               <button
                 type="button"
                 data-buy-prod="${prod.id}"
-                class="buy-tg-btn shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white shadow-md shadow-blue-600/20 transition"
+                class="buy-tg-btn shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 active:scale-[0.99] text-white shadow-md shadow-blue-600/20 transition"
               >
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
@@ -2147,6 +2269,69 @@
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), ms);
       return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+    }
+
+    // --- USD to MMK rate display (informational only, never a price) ---
+    // Seed: last-known official CBM reference rate, 2,100 MMK, published
+    // 5 Nov 2026. The pill always shows a dated value. On load we try the
+    // Central Bank of Myanmar public API first; it sends no CORS headers,
+    // so a browser fetch from GitHub Pages is blocked and we fall back to
+    // the free no-key market rates API, labeled honestly as a market rate.
+    // The last good value is cached in localStorage with its date, so the
+    // shop still shows something offline. If nothing refreshes, the seeded
+    // or cached value stays with a plain "rate could not be refreshed" note.
+    const USD_RATE_KEY = 'nes_hub_usd_rate';
+    const USD_RATE_SEED = { value: 2100, date: '5 Nov 2026', source: 'official' };
+    let lastUsdRate = { value: USD_RATE_SEED.value, date: USD_RATE_SEED.date, source: 'official', stale: false };
+    function renderUsdRate(rate) {
+      lastUsdRate = rate;
+      const t = I18N[state.lang];
+      const valEl = document.getElementById('usdRateValue');
+      const srcEl = document.getElementById('usdRateSource');
+      const dateEl = document.getElementById('usdRateDate');
+      const noteEl = document.getElementById('usdRateNote');
+      if (!valEl || !srcEl || !dateEl || !noteEl) return;
+      valEl.textContent = '1 USD = ' + Number(rate.value).toLocaleString('en-US') + ' MMK';
+      srcEl.textContent = rate.source === 'official' ? t.rateOfficial : t.rateMarket;
+      dateEl.textContent = rate.date;
+      if (rate.stale) { noteEl.textContent = t.rateStale; noteEl.classList.remove('hidden'); }
+      else { noteEl.textContent = ''; noteEl.classList.add('hidden'); }
+    }
+    function usdRateDateStr(d) {
+      if (!d || isNaN(d.getTime())) return USD_RATE_SEED.date;
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    async function fetchUsdRate() {
+      let cached = null;
+      try { cached = JSON.parse(localStorage.getItem(USD_RATE_KEY) || 'null'); } catch (e) {}
+      if (cached && cached.value) renderUsdRate({ value: cached.value, date: cached.date || USD_RATE_SEED.date, source: cached.source || 'official', stale: false });
+      else renderUsdRate({ value: USD_RATE_SEED.value, date: USD_RATE_SEED.date, source: 'official', stale: false });
+      try {
+        const res = await fetchWithTimeout('https://forex.cbm.gov.mm/api/latest', 6000);
+        const data = await res.json();
+        const usd = data && data.rates && data.rates.USD;
+        if (usd) {
+          const ts = data.timestamp ? new Date(data.timestamp * 1000) : null;
+          const rate = { value: Math.round(parseFloat(usd)), date: usdRateDateStr(ts), source: 'official', stale: false };
+          try { localStorage.setItem(USD_RATE_KEY, JSON.stringify(rate)); } catch (e) {}
+          renderUsdRate(rate);
+          return;
+        }
+      } catch (e) { /* CBM unreachable or CORS blocked, fall through to the market fallback */ }
+      try {
+        const res = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD', 6000);
+        const data = await res.json();
+        const mmk = data && data.rates && data.rates.MMK;
+        if (mmk) {
+          const upd = data.time_last_update_utc ? new Date(data.time_last_update_utc) : null;
+          const rate = { value: Math.round(mmk), date: usdRateDateStr(upd), source: 'market', stale: false };
+          try { localStorage.setItem(USD_RATE_KEY, JSON.stringify(rate)); } catch (e) {}
+          renderUsdRate(rate);
+          return;
+        }
+      } catch (e) { /* offline, keep the seeded or cached value */ }
+      const shown = cached && cached.value ? cached : USD_RATE_SEED;
+      renderUsdRate({ value: shown.value, date: shown.date || USD_RATE_SEED.date, source: shown.source || 'official', stale: true });
     }
 
     function parseRssItems(xmlText, limit) {
@@ -2299,7 +2484,7 @@
           const date = formatFeedDate(it.date);
           if (date) {
             const d = document.createElement('div');
-            d.className = 'text-[11px] text-slate-500 dark:text-slate-400 pt-0.5';
+            d.className = 'text-xs text-slate-500 dark:text-slate-400 pt-0.5';
             d.textContent = date;
             a.appendChild(d);
           }
@@ -2432,10 +2617,10 @@
       const tokenBadge = document.getElementById('tokenStatusBadge');
       if (state.githubToken) {
         tokenBadge.textContent = 'Token Saved Locally';
-        tokenBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400';
+        tokenBadge.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400';
       } else {
         tokenBadge.textContent = 'No Token Saved';
-        tokenBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+        tokenBadge.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
       }
 
       updateDraftBannerUI();
@@ -2827,6 +3012,44 @@
       if (!digits) return null;
       return parseInt(digits, 10);
     }
+    // Membership tier, computed from the same device-local purchase records
+    // the Total Spending card sums (numeric MMK prices only, via
+    // profilePlanPriceNum). Windows are rolling: Gold needs 300,000 MMK or
+    // more bought in the last 30 days, Emerald needs 500,000 MMK or more
+    // bought in the last 90 days, matching the Membership tab rule text
+    // ("in 1 month" / "in 3 months"). Any priced purchase at all makes
+    // Normal; no priced purchase means Guest. Display only, nothing is
+    // stored and no purchase data changes.
+    function profileMembershipTier() {
+      const services = loadServices();
+      const priced = [];
+      services.forEach(function (svc) {
+        const n = profilePlanPriceNum(svc);
+        if (n === null) return;
+        const b = new Date(svc.bought + 'T00:00:00');
+        if (isNaN(b.getTime())) return;
+        priced.push({ n: n, bought: b });
+      });
+      if (priced.length === 0) return { key: 'guest', label: 'Guest' };
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const DAY = 86400000;
+      let in1m = 0, in3m = 0;
+      priced.forEach(function (p) {
+        const diff = now.getTime() - p.bought.getTime();
+        if (diff < 0) return;
+        if (diff < 90 * DAY) in3m += p.n;
+        if (diff < 30 * DAY) in1m += p.n;
+      });
+      if (in3m >= 500000) return { key: 'emerald', label: 'Emerald Member' };
+      if (in1m >= 300000) return { key: 'gold', label: 'Gold Member' };
+      return { key: 'normal', label: 'Normal Member' };
+    }
+    function profileTierStyle(key) {
+      if (key === 'normal') return 'bg-blue-600/10 text-blue-600 dark:text-blue-400 border-blue-500/30';
+      if (key === 'gold') return 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30';
+      if (key === 'emerald') return 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30';
+      return 'bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/30';
+    }
     function profilePlanPriceLabel(svc) {
       const found = profilePlanOf(svc);
       const label = found.plan ? formatPriceLabel(found.plan.price) : null;
@@ -2872,12 +3095,12 @@
               <div class="min-w-0">
                 <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">${greeting}</p>
                 <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight">${t.profileHeading}</h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400">${dateLine}</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">${dateLine}</p>
               </div>
             </div>
             <div class="profile-glass p-5 space-y-4">
               <h3 class="font-bold text-base text-slate-900 dark:text-white">${isSignup ? t.profileSignUpTitle : t.profileSignInTitle}</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400">${t.profileOnDevice}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">${t.profileOnDevice}</p>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">${t.profileNameLabel}</label>
                 <input id="profileNameInput" type="text" autocomplete="username" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm text-slate-900 dark:text-white" />
@@ -2959,6 +3182,9 @@
       const activeProducts = state.catalog.products.filter(function (x) { return x.active; });
       const firstProd = activeProducts[0] || null;
       const planOptions = firstProd ? firstProd.plans.map(function (pl) { return `<option value="${escapeHtml(pl.label)}">${escapeHtml(pl.label)}</option>`; }).join('') : '';
+      const tier = profileMembershipTier();
+      const tierCls = profileTierStyle(tier.key);
+      const tierNote = tier.key === 'guest' ? 'Guest · ' + t.normalEligibility : t[tier.key + 'Eligibility'];
       const shownRows = profileShowAllUpcoming ? rows : rows.slice(0, 3);
       const upcomingHtml = rows.length === 0 ? `<p class="text-sm text-slate-500 dark:text-slate-400">${t.profileNoServices}</p>` : shownRows.map(function (r) {
         const renewLine = r.exp ? (r.st.key === 'expired' ? t.profileExpiredOn + ' ' + fmtDate(r.exp) : t.profileRenews + ' ' + fmtDate(r.exp)) : t.profileNoExpiry;
@@ -2969,9 +3195,9 @@
             <div class="min-w-0 flex-1">
               <div class="flex items-start justify-between gap-2">
                 <h4 class="font-bold text-sm text-slate-900 dark:text-white leading-snug" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.prod ? r.prod.name : r.svc.productId)}</h4>
-                <span class="shrink-0 whitespace-nowrap px-2 py-0.5 rounded-full text-[11px] font-bold border ${r.st.cls}">${profilePillText(r.st, t)}</span>
+                <span class="shrink-0 whitespace-nowrap px-2 py-0.5 rounded-full text-xs font-bold border ${r.st.cls}">${profilePillText(r.st, t)}</span>
               </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)} &middot; ${renewLine}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)} &middot; ${renewLine}</p>
               <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">${t.profileBought}: ${fmtDate(new Date(r.svc.bought + 'T00:00:00'))} &nbsp;&middot;&nbsp; ${t.profileExpires}: ${r.exp ? fmtDate(r.exp) : t.profileNoExpiry}</p>
               <div class="mt-2 flex flex-wrap gap-2">
                 <button type="button" data-renew-id="${r.svc.id}" class="px-3 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition">${t.profileRenew}</button>
@@ -2980,7 +3206,7 @@
             </div>
             <div class="shrink-0 text-right">
               <p class="text-sm font-extrabold text-slate-900 dark:text-white whitespace-nowrap">${escapeHtml(profilePlanPriceLabel(r.svc))}</p>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
             </div>
           </article>`;
       }).join('');
@@ -3017,7 +3243,7 @@
             <span class="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-white/10 flex items-center justify-center overflow-hidden shrink-0">${r.prod ? brandLogoHtml(r.prod) : getCategoryIconSvg('')}</span>
             <div class="min-w-0 flex-1">
               <p class="font-bold text-sm text-slate-900 dark:text-white leading-snug">${escapeHtml(r.prod ? r.prod.name : r.svc.productId)}</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">${escapeHtml(r.svc.planLabel)}</p>
             </div>
             <p class="shrink-0 text-sm font-extrabold text-slate-900 dark:text-white whitespace-nowrap">${escapeHtml(profilePlanPriceLabel(r.svc))}</p>
           </div>`;
@@ -3029,13 +3255,15 @@
           <div class="min-w-0 flex-1">
             <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">${greeting}, ${escapeHtml(state.sessionName)}</p>
             <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-tight">${t.profileHeading}</h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400">${dateLine}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">${dateLine}</p>
           </div>
+          <button id="profileTierBadge" type="button" title="${escapeHtml(tierNote)}" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold border transition ${tierCls}">${escapeHtml(tier.label)}</button>
           <button id="profileSignOutBtn" type="button" class="shrink-0 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${t.profileSignOut}</button>
         </div>
+        <p class="lg:col-span-12 -mt-2 text-xs text-slate-500 dark:text-slate-400">${escapeHtml(tierNote)}</p>
         <section id="profileSpendCard" class="profile-glass lg:col-span-7 p-5">
           <div class="flex items-start justify-between gap-3">
-            <p class="text-[11px] font-bold tracking-widest text-slate-500 dark:text-slate-400">${t.profileTotalSpending}</p>
+            <p class="text-xs font-bold tracking-widest text-slate-500 dark:text-slate-400">${t.profileTotalSpending}</p>
             <span class="inline-flex items-center gap-1 rounded-full bg-blue-600 text-white text-xs font-bold px-2 py-1">
               <button id="profileSpendPrev" type="button" aria-label="Previous month" class="px-1 leading-none">&#8249;</button>
               <span id="profileSpendMonthLabel" class="whitespace-nowrap">${profileMonthLabel(profileSpendYear, profileSpendMonth)}</span>
@@ -3054,19 +3282,19 @@
         <section class="lg:col-span-7 grid grid-cols-4 gap-2 sm:gap-3">
           <button id="profileQuickAdd" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
             <span class="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg></span>
-            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickAdd}</span>
+            <span class="text-xs sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickAdd}</span>
           </button>
           <button id="profileQuickShop" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
             <span class="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></span>
-            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickShop}</span>
+            <span class="text-xs sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickShop}</span>
           </button>
           <button id="profileQuickRenew" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
             <span class="w-9 h-9 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></span>
-            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickRenewNext}</span>
+            <span class="text-xs sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickRenewNext}</span>
           </button>
           <button id="profileQuickSeeAll" type="button" class="profile-glass profile-quick-tile flex flex-col items-center justify-center gap-1.5 py-3 px-1">
             <span class="w-9 h-9 rounded-full bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-300 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg></span>
-            <span class="text-[11px] sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickSeeAll}</span>
+            <span class="text-xs sm:text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">${t.profileQuickSeeAll}</span>
           </button>
         </section>
         <section id="profileUpcomingCard" class="profile-glass lg:col-span-7 p-5">
@@ -3085,7 +3313,7 @@
             </span>
           </div>
           <p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">${profileMonthLabel(profileCalYear, profileCalMonth)}</p>
-          <div class="mt-3 grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-slate-400 dark:text-slate-500">${weekdayNames.map(function (w) { return `<span class="py-1">${w}</span>`; }).join('')}</div>
+          <div class="mt-3 grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 dark:text-slate-500">${weekdayNames.map(function (w) { return `<span class="py-1">${w}</span>`; }).join('')}</div>
           <div id="profileCalGrid" class="grid grid-cols-7 gap-1">${calCells}</div>
           <div id="profileCalDay" class="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/10">
             <div class="flex items-baseline justify-between gap-2">
@@ -3116,6 +3344,11 @@
         </section>
       </div>
       `;
+      document.getElementById('profileTierBadge').addEventListener('click', function () {
+        state.activeCategory = 'Membership';
+        renderAll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
       document.getElementById('profileSignOutBtn').addEventListener('click', function () {
         profileFormMode = 'signin';
         state.sessionName = '';
@@ -3279,7 +3512,7 @@
         const dur = musicYt.getDuration(), cur = musicYt.getCurrentTime();
         const fill = document.getElementById('musicFill');
         const timeEl = document.getElementById('musicTime');
-        if (dur && fill) fill.style.width = (cur / dur * 100) + '%';
+        if (dur && fill) fill.style.transform = 'scaleX(' + (cur / dur) + ')';
         if (timeEl) timeEl.textContent = musicFmt(cur) + ' / ' + musicFmt(dur);
       }, 500);
     }
@@ -3300,10 +3533,11 @@
       const w = el.offsetWidth || 300, h = el.offsetHeight || 64;
       x = Math.max(8, Math.min(window.innerWidth - w - 8, x));
       y = Math.max(8, Math.min(window.innerHeight - h - 8, y));
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
+      el.style.left = '0';
+      el.style.top = '0';
       el.style.bottom = 'auto';
       el.style.right = 'auto';
+      el.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
     }
     function musicSavePos() {
       try {
@@ -3380,6 +3614,7 @@
       await loadPublishedCatalog();
       loadSavedState();
       renderAll();
+      fetchUsdRate();
       updateHalloweenBanner();
       setInterval(updateHalloweenBanner, 1000);
       setInterval(updateClockAndGreeting, 1000);
